@@ -70,16 +70,19 @@ const Game = () => {
         <label>Artist: </label>
         <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
         <button className="buttonHint" onClick={() => alert(artist)}>Hint</button>
+        {showAnswer && <div className="answer">Answer: {artist}</div>}
       </div>
       <div className = "row">
         <label>Date: </label>
         <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
         <button className="buttonHint" onClick={() => alert(date)}>Hint</button>
+        {showAnswer && <div className="answer">Answer: {date}</div>}
       </div>
       <div className = "row">
         <label>Type: </label>
         <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
         <button className="buttonHint" onClick={() => alert(type)}>Hint</button>
+        {showAnswer && <div className="answer">Answer: {type}</div>}
       </div>
       <div className = "row" style ={{marginLeft:"40px"}}>
         <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "25px"}}>Show Answer</button>
