@@ -82,7 +82,7 @@ const Game = () => {
         <button className="buttonHint" onClick={() => alert(type)}>Hint</button>
       </div>
       <div className = "row" style ={{marginLeft:"40px"}}>
-        <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "40px"}}>Show Answer</button>
+        <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "25px"}}>Show Answer</button>
         <button className = "button" onClick={handleNext}>Next</button>
       </div>
     </div>
