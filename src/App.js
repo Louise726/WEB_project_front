@@ -60,7 +60,7 @@ const Game = () => {
   
 
   return (
-   <div className = "App-header"> 
+   <div className = "backGround"> 
     <div className="centered"> {}
       <h1>Guessing Game</h1>
       <div className = "row">
