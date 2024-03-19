@@ -14,15 +14,29 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  position: relative; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
+
+
+.App-header::before {
+  content: '';
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/public/background.jpg');
+  background-size: cover;
+  filter: blur(5px);    /* Add the blur effect */
+  z-index: -1;      /* Place the background behind the content */
+}
+
 
 .App-link {
   color: #61dafb;
@@ -36,3 +50,91 @@
     transform: rotate(360deg);
   }
 }
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.row {
+  margin-bottom: 20px; 
+}
+
+.inputCustom {
+  background-color: transparent; 
+  border: none; /* remove border */
+  border-bottom: 1px solid black; /* add a bottom border */
+  color: black; /* color of words */
+  outline: none; 
+}
+
+
+.button {
+  width: 120px; 
+  height: 30px; 
+  font-size: 16px; 
+  color: rgb(49, 47, 47); /* color of words */
+  background-color: #f1eef434; 
+  border: none; /* remove border */
+  border-radius: 5px; /* set border radius */
+  cursor: pointer; /* change cursor to pointer */
+  transition: background-color 0.3s; /* add the transition effect */
+}
+
+.button:hover {
+  background-color: #e5eaf0e9; /* change background color when hover */
+}
+
+.buttonHint {
+  font-size: 12px; 
+  color: #1f1e1e; 
+  margin-top: 5px; 
+  background-color: #f1eef46d;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonHint:hover {
+  background-color: #79777751;  
+}
+
+.ranking-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%; /* 30% of the screen width */
+  height: 100vh; /* 100% of the screen height */
+  background-color: rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+}
+
+.ranking-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
+}
+
+.ranking-list {
+  flex: 1;
+  overflow-y: auto; /* if the content is too long, add a scrollbar */
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc; /* add a bottom border */
+}
+
+.ranking-item:last-child {
+  border-bottom: none; /* remove the bottom border for the last item */
+}
+
+
+
