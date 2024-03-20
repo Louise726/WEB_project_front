@@ -67,7 +67,7 @@ const Game = () => {
     <div className="centered"> {}
       <h1>Guessing Game</h1>
       <div className = "row">
-        <img src={url} alt="Artwork" />
+        <img src={url} alt="Artwork" height="400"/>
       </div>
       <div className = "row">
         <label>Artist: </label>
