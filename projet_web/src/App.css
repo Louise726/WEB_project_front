@@ -97,10 +97,10 @@ h1 {
 
 .custom-box {
   position : fixed;
-  top: 70%;
+  top: 75%;
   left: 30%;
   width : 40%;
-  height : 20%;
+  height : 15%;
   border-radius: 10px; 
   background-color: rgba(255, 255, 255, 0.232); 
   padding: 20px; 
@@ -110,7 +110,7 @@ h1 {
 
 .extraInfor {
   font-size: 20px; 
-  color: #b46945e8; 
+  color: #7d452ce8; 
   margin-top: 20px; 
   font-weight: bold;
 }

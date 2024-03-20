@@ -37,28 +37,32 @@ function App() {
 
 const imageData = [
   {
-    url: 'url_to_image1',
+    url: 'url_to_image_1',
     title: 'Title 1',
     artist: 'Artist 1',
     date: 'Date 1',
+    info: 'Info on painting 1'
   },
   {
     url: 'url_to_image2',
     title: 'Title 2',
     artist: 'Artist 2',
     date: 'Date 2',
+    info: 'Info on painting 2'
   },
   {
     url: 'url_to_image3',
     title: 'Title 3',
     artist: 'Artist 3',
     date: 'Date 3',
+    info: 'Info on painting 3'
   },
   {
     url: 'url_to_image4',
     title: 'Title 4',
     artist: 'Artist 4',
-    date: 'Date 4', 
+    date: 'Date 4',
+    info: 'Info on painting 4'
   }
   
 ];
@@ -70,7 +74,7 @@ const Game = () => {
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
   
-  const { url, title, artist, date } = imageData[currentIndex];
+  const { url, title, artist, date, info } = imageData[currentIndex];
   
   const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
   const [scoreRound, setScoreRound] = useState(0);
@@ -113,10 +117,10 @@ const Game = () => {
 
   return (
    <div className = "backGround"> 
-    <h1>Guessing Game</h1>
+    <h1>Art Guessr</h1>
     <div className="centered"> {}
       <div className = "row">
-        <img src={url} alt="Artwork" height="400" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
+        <img src={url} alt="Artwork" height="200" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
       </div>
       <div className = "row">
         <label>Title: </label>
@@ -162,7 +166,7 @@ const Game = () => {
         {inputDisabled && (
           <div className='custom-box'>
             <div className='extraInfor'>Score of this round: {scoreRound}</div>
-            <div className='extraInfor'>Information of this image:</div>
+            <div className='extraInfor'>Information on this painting: {info}</div>
             <div className='extraInfor'></div>
           </div>
         )}
