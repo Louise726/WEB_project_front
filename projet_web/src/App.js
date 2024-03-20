@@ -48,23 +48,64 @@ const imageData = [
     date: 'Date 2',
     type: 'Type 2'
   },
+  {
+    url: 'url_to_image3',
+    artist: 'Artist 3',
+    date: 'Date 3',
+    type: 'Type 3'
+  },
+  {
+    url: 'url_to_image4',
+    artist: 'Artist 4',
+    date: 'Date 4',
+    type: 'Type 4'
+  
+  }
   
 ];
 
 const Game = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false); 
+  const [inputDisabled, setInputDisabled] = useState(false);
   const { url, artist, date, type } = imageData[currentIndex];
-  const [userRank, setUserRank] = useState({ rank: 11, score: 61 });
+  const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
   const [nextIndex, setNextIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({
+    artist: '',
+    date: '',
+    type: ''
+  });
 
+
+  // handleNext function to update the currentIndex and nextIndex
   const handleNext = () => {
     setShowAnswer(false);
-    setCurrentIndex(currentIndex === imageData.length - 1 ? 0 : currentIndex + 1);
+    const nextIndex=currentIndex === imageData.length - 1 ? 0 : currentIndex + 1;
     setNextIndex(nextIndex);
     setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
+    setUserAnswers({ artist: '', date: '', type: '' }); 
+    setInputDisabled(false);
+  };
+
+  // handleInputChange function to update the userAnswers
+  const handleInputChange = (e, key) => {
+    setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
   
+  // handleSubmission function to calculate the score
+  const handleSubmission = () => {
+    const scoreGet = 
+      (userAnswers.artist.toLowerCase() === artist.toLowerCase() ? 1 : 0 )+
+      (userAnswers.date.toLowerCase() === date.toLowerCase() ? 1 : 0) +
+      (userAnswers.type.toLowerCase() === type.toLowerCase() ? 1 : 0);
+    
+    setUserRank(prevState =>({
+      ...prevState,
+      score: prevState.score + scoreGet
+    }));
+    setInputDisabled(true);
+  };
 
   return (
    <div className = "backGround"> 
@@ -75,24 +116,42 @@ const Game = () => {
       </div>
       <div className = "row">
         <label>Artist: </label>
-        <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
+        <input type="text" 
+               value={userAnswers.artist}
+               disabled={showAnswer || inputDisabled} 
+               className = "inputCustom" 
+               style = {{marginRight : "10px"}}
+               onChange = {(e) => handleInputChange(e, 'artist')}/>
         <button className="buttonHint" onClick={() => alert(artist)}>Hint</button>
         {showAnswer && <div className="answer">Answer: {artist}</div>}
       </div>
       <div className = "row">
         <label>Date: </label>
-        <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
+        <input type="text" 
+               value= {userAnswers.date}
+               disabled={showAnswer || inputDisabled} 
+               className = "inputCustom" 
+               style = {{marginRight : "10px"}}
+               onChange= {(e) => handleInputChange(e, 'date')}
+               />
         <button className="buttonHint" onClick={() => alert(date)}>Hint</button>
         {showAnswer && <div className="answer">Answer: {date}</div>}
       </div>
       <div className = "row">
         <label>Type: </label>
-        <input type="text" disabled={showAnswer} className = "inputCustom" style = {{marginRight : "10px"}}/>
+        <input type="text" 
+               value= {userAnswers.type}
+               disabled={showAnswer || inputDisabled} 
+               className = "inputCustom" 
+               style = {{marginRight : "10px"}}
+               onChange = {(e) => handleInputChange(e, 'type')}
+               />
         <button className="buttonHint" onClick={() => alert(type)}>Hint</button>
         {showAnswer && <div className="answer">Answer: {type}</div>}
       </div>
       <div className = "row" style ={{marginLeft:"40px"}}>
-        <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "25px"}}>Show Answer</button>
+        <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
+        <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
         <button className = "button" onClick={handleNext}>Next</button>
       </div>
     </div>
