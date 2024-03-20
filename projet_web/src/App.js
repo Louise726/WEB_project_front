@@ -55,19 +55,23 @@ const Game = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const { url, artist, date, type } = imageData[currentIndex];
+  const [userRank, setUserRank] = useState({ rank: 11, score: 61 });
+  const [nextIndex, setNextIndex] = useState(0);
 
   const handleNext = () => {
     setShowAnswer(false);
     setCurrentIndex(currentIndex === imageData.length - 1 ? 0 : currentIndex + 1);
+    setNextIndex(nextIndex);
+    setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
   };
   
 
   return (
    <div className = "backGround"> 
+    <h1>Guessing Game</h1>
     <div className="centered"> {}
-      <h1>Guessing Game</h1>
       <div className = "row">
-        <img src={url} alt="Artwork" height="400"/>
+        <img src={url} alt="Artwork" height="400" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
       </div>
       <div className = "row">
         <label>Artist: </label>
@@ -102,6 +106,10 @@ const Game = () => {
               <span>Score</span>
             </div>
           ))}
+        </div>
+        <div className="ranking-item user-rank">
+            <span>#{userRank.rank}</span>
+            <span>Score: {userRank.score}</span>
         </div>
     </div>
   </div>
