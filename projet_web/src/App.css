@@ -110,8 +110,9 @@ h1 {
 
 .extraInfor {
   font-size: 20px; 
-  color: #91cd1ae8; 
+  color: #b46945e8; 
   margin-top: 20px; 
+  font-weight: bold;
 }
 
 .ranking-container {
