@@ -68,6 +68,10 @@ const imageData = [
 ];
 
 const Game = () => {
+  const[showStart, setShowStart] = useState(true);
+  const[showChoice, setShowChoice] = useState(false);
+  const[showGame, setShowGame] = useState(false);
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(0);
   
@@ -83,6 +87,24 @@ const Game = () => {
     artist: '',
     date: '',
   });
+  
+  const ShowStart = () => {
+    setShowStart(true);
+    setShowChoice(false);
+    setShowGame(false);
+  }
+  
+  const ShowChoice = () => {
+    setShowStart(false);
+    setShowChoice(true);
+    setShowGame(false);
+  }
+  
+  const ShowGame = () => {
+    setShowStart(false);
+    setShowChoice(false);
+    setShowGame(true);
+  }
 
 
   // handleNext function to update the currentIndex and nextIndex
@@ -115,82 +137,119 @@ const Game = () => {
     setInputDisabled(true);
   };
 
+  
   return (
    <div className = "backGround"> 
-    <h1>Art Guessr</h1>
-    <div className="centered"> {}
-      <div className = "row">
-        <img src={url} alt="Artwork" height="200" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
+    {/* show the start page */}
+    {showStart && (
+      <div className="centered">
+        <div className="imageRolling">
+        </div>
+            
+        <div className="start-title">
+        </div>
+        
+        <div className="start-intro">
+        </div>
+
+        <div className="start-button">
+        </div>
       </div>
-      <div className = "row">
-        <label>Title: </label>
-        <input type="text" 
-               value={userAnswers.title}
-               disabled={showAnswer || inputDisabled} 
-               className = "inputCustom" 
-               style = {{marginRight : "10px"}}
-               onChange = {(e) => handleInputChange(e, 'title')}/>
-        <button className="buttonHint" onClick={() => alert(title)}>Hint</button>
-        {showAnswer && <div className="answer">Answer: {title}</div>}
+    )}
+
+    {/* show the choice page */}
+    {showChoice && (
+      <div>
+        <div className="choice-image">
+        </div>
+        <div className="choice-button">
+        </div>
+        <div className="return-button">
+        </div>
       </div>
-      <div className = "row">
-        <label>Artist: </label>
-        <input type="text" 
-               value= {userAnswers.artist}
-               disabled={showAnswer || inputDisabled} 
-               className = "inputCustom" 
-               style = {{marginRight : "10px"}}
-               onChange= {(e) => handleInputChange(e, 'artist')}
-               />
-        <button className="buttonHint" onClick={() => alert(artist)}>Hint</button>
-        {showAnswer && <div className="answer">Answer: {artist}</div>}
-      </div>
-      <div className = "row">
-        <label>Date: </label>
-        <input type="text" 
-               value= {userAnswers.date}
-               disabled={showAnswer || inputDisabled} 
-               className = "inputCustom" 
-               style = {{marginRight : "10px"}}
-               onChange = {(e) => handleInputChange(e, 'date')}
-               />
-        <button className="buttonHint" onClick={() => alert(date)}>Hint</button>
-        {showAnswer && <div className="answer">Answer: {date}</div>}
-      </div>
-      <div className = "row" style ={{marginLeft:"40px"}}>
-        <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
-        <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
-        <button className = "button" onClick={handleNext}>Next</button>
-      </div>
-      <div className="row">
-        {inputDisabled && (
-          <div className='custom-box'>
-            <div className='extraInfor'>Score of this round: {scoreRound}</div>
-            <div className='extraInfor'>Information on this painting: {info}</div>
-            <div className='extraInfor'></div>
+    )}
+
+    {/* show the game page */}
+    {showGame && (    
+      <div>  
+        <h1>Art Guessr</h1>
+        <div className="centered"> {}
+          <div className = "row">
+            <img src={url} alt="Artwork" height="200" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
           </div>
-        )}
-      </div>
-    </div>
-    <div className="ranking-container">
-        <div className="ranking-title">Ranking</div>
-        <div className="ranking-list">
-          {/* create 10 rows */}
-          {[...Array(15)].map((_, index) => (
-            <div className="ranking-item" key={index}>
-              <span>#{index + 1}</span>
-              <span>Score</span>
+          <div className = "row">
+            <label>Title: </label>
+            <input type="text" 
+                  value={userAnswers.title}
+                  disabled={showAnswer || inputDisabled} 
+                  className = "inputCustom" 
+                  style = {{marginRight : "10px"}}
+                  onChange = {(e) => handleInputChange(e, 'title')}/>
+            <button className="buttonHint" onClick={() => alert(title)}>Hint</button>
+            {showAnswer && <div className="answer">Answer: {title}</div>}
+          </div>
+          <div className = "row">
+            <label>Artist: </label>
+            <input type="text" 
+                  value= {userAnswers.artist}
+                  disabled={showAnswer || inputDisabled} 
+                  className = "inputCustom" 
+                  style = {{marginRight : "10px"}}
+                  onChange= {(e) => handleInputChange(e, 'artist')}
+                  />
+            <button className="buttonHint" onClick={() => alert(artist)}>Hint</button>
+            {showAnswer && <div className="answer">Answer: {artist}</div>}
+          </div>
+          <div className = "row">
+            <label>Date: </label>
+            <input type="text" 
+                  value= {userAnswers.date}
+                  disabled={showAnswer || inputDisabled} 
+                  className = "inputCustom" 
+                  style = {{marginRight : "10px"}}
+                  onChange = {(e) => handleInputChange(e, 'date')}
+                  />
+            <button className="buttonHint" onClick={() => alert(date)}>Hint</button>
+            {showAnswer && <div className="answer">Answer: {date}</div>}
+          </div>
+          <div className = "row" style ={{marginLeft:"40px"}}>
+            <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
+            <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
+            <button className = "button" onClick={handleNext}>Next</button>
+          </div>
+          <div className="row">
+            {inputDisabled && (
+              <div className='custom-box'>
+                <div className='scoreround'>Score of this round: {scoreRound}</div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="ranking-container">
+            <div className="ranking-title">Ranking</div>
+            <div className="ranking-list">
+              {/* create 10 rows */}
+              {[...Array(15)].map((_, index) => (
+                <div className="ranking-item" key={index}>
+                  <span>#{index + 1}</span>
+                  <span>Score</span>
+                </div>
+              ))}
             </div>
-          ))}
+            <div className="ranking-item user-rank">
+                <span>#{userRank.rank}</span>
+                <span>Score: {userRank.score}</span>
+            </div>
         </div>
-        <div className="ranking-item user-rank">
-            <span>#{userRank.rank}</span>
-            <span>Score: {userRank.score}</span>
+        <div className="extraInfor"> 
+            <div className="infor-title">Extra Information</div>
+            <div className="inforcontent">{info}</div>
         </div>
-    </div>
+      </div>
+    )}
   </div>
   );
-};
+}
 
 export default App;
 

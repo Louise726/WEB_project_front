@@ -97,10 +97,10 @@ h1 {
 
 .custom-box {
   position : fixed;
-  top: 75%;
-  left: 30%;
-  width : 40%;
-  height : 15%;
+  top: 78%;
+  left: 35%;
+  width : 28%;
+  height : 12%;
   border-radius: 10px; 
   background-color: rgba(255, 255, 255, 0.232); 
   padding: 20px; 
@@ -108,7 +108,7 @@ h1 {
   word-wrap: break-word;
 }
 
-.extraInfor {
+.scoreround {
   font-size: 20px; 
   color: #7d452ce8; 
   margin-top: 20px; 
@@ -159,4 +159,26 @@ h1 {
   opacity: 0; /* set the opacity to 0 */
 }
 
+.extraInfor{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100vh;
+  background-color: rgba(182, 178, 178, 0.277);
+  display: flex;
+  flex-direction: column;
+}
 
+.infor-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
+}
+
+.inforcontent {
+  font-size: 16px;
+  padding: 10px 20px;
+  color: #1f1e1e;
+  overflow-y: auto;
+}
