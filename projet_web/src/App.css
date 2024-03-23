@@ -1,7 +1,7 @@
 
 
 .backGround {
-  position: relative;
+  position: relative; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 
 .backGround::before {
   content: '';
-  position: fixed; 
+  position: absolute; 
   top: 0;
   left: 0;
   width: 100%;
@@ -24,6 +24,175 @@
   z-index: -1;      /* Place the background behind the content */
 }
 
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* page of intro */
+.sliding-images-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+}
+
+
+.sliding-images {
+  background: url("/public/image-slide.jpg");
+  background-size: cover;
+  position: relative;
+  left: 0;
+  top: 0;
+  height: 300px;
+  width: 4080px;
+  animation: slideshow 20s linear infinite;
+}
+
+@keyframes slideshow {
+  100% { 
+    -webkit-transform: translateX(-58.8%);  
+  }
+}
+
+
+.start-container {
+  position: fixed;
+  top: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+
+
+.start-title {
+  font-size: 48px;
+  color: #3cb116d4; 
+  margin-bottom: 60px;
+  font-weight: bold;
+}
+
+.intro-box {
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(102, 97, 97, 0.395);   
+  text-align: center;
+  overflow-y: auto;
+  word-wrap: break-word;
+  margin-bottom: 60px;
+}
+
+.intro-content {
+  font-size: 20px;
+  color: #1f1e1e;
+}
+
+.buttonStart {
+  width: 150px;
+  height: 45px;
+  font-size: 24px;
+  color: rgb(43, 39, 39);
+  background-color: #2662ab8b;
+  border: none;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.buttonStart:hover {
+  background-color: #4a50c4c9; 
+}
+
+
+.choice-button-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80%;
+  height: 100%;
+}
+
+
+.choice-button-easy {
+  width: 200px;
+  height: 60px;
+  font-size: 32px;
+  text-align: center;
+  color: rgb(83, 79, 79);
+  background-color: #4cc26fa4;
+  border: none;
+  margin: 20px 5px;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  transition: background-color 0.3s;
+}
+
+.choice-button-easy:hover {
+  background-color: #45a049; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.choice-button-medium {
+  width: 200px;
+  height: 60px;
+  font-size: 32px;
+  text-align: center;
+  color: rgb(83, 79, 79);
+  background-color: #2f7fca7c;
+  border: none;
+  margin: 20px 5px;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  transition: background-color 0.3s;
+}
+
+.choice-button-medium:hover {
+  background-color: #245e94c9; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.choice-button-hard {
+  width: 200px;
+  height: 60px;
+  font-size: 32px;
+  text-align: center;
+  color: rgb(83, 79, 79);
+  background-color: #c26f4c86;
+  border: none;
+  margin: 20px 5px;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  transition: background-color 0.3s;
+}
+
+.choice-button-hard:hover {
+  background-color: #b95930bf; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+
+
+/* page of game */
 h1 {
   position: fixed;
   top: 0;
@@ -34,15 +203,7 @@ h1 {
   padding: 10px 0; 
   margin: 0;
   text-align: center;
-}
-
-
-.centered {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  font-weight: bold;
 }
 
 .row {
@@ -74,6 +235,7 @@ h1 {
   outline: none; 
   text-align: center;
 }
+
 
 .button {
   width: 120px; 
@@ -224,4 +386,26 @@ h1 {
   padding: 10px 20px;
   /*color: #1f1e1e;*/
   overflow-y: auto;
+}
+
+.exit-button {
+  position: fixed;
+  right: 25px;
+  top: 90%;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  text-align: center;
+  color: rgb(43, 39, 39);
+  background-color: #15bc2cb0;
+  border: none;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.exit-button:hover {
+  background-color: #3dc613; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

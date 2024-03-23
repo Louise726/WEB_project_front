@@ -1,3 +1,5 @@
+
+
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
@@ -32,8 +34,6 @@ function App() {
   )
 }
 
-
-
 const imageData = [
   {
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Les_Deux_S%C5%93urs_ou_Sur_la_Terrasse.jpg/390px-Les_Deux_S%C5%93urs_ou_Sur_la_Terrasse.jpg',
@@ -66,14 +66,17 @@ const imageData = [
   
 ];
 
+
+
 const Game = () => {
-  const[showStart, setShowStart] = useState(false);
+  const[showStart, setShowStart] = useState(true);
   const[showChoice, setShowChoice] = useState(false);
-  const[showGame, setShowGame] = useState(true);
+  const[showGame, setShowGame] = useState(false);
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(0);
   const [hint, setHint] = useState(0);
+
   
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
@@ -87,7 +90,9 @@ const Game = () => {
     artist: '',
     date: '',
   });
+
   
+  // fonctions to show the different pages
   const ShowStart = () => {
     setShowStart(true);
     setShowChoice(false);
@@ -95,9 +100,7 @@ const Game = () => {
   }
   
   const ShowChoice = () => {
-    setShowStart(false);
     setShowChoice(true);
-    setShowGame(false);
   }
   
   const ShowGame = () => {
@@ -105,7 +108,23 @@ const Game = () => {
     setShowChoice(false);
     setShowGame(true);
   }
+  
+  const EasyGame = () => {
+    // easymode()
+    ShowGame();
+  }
 
+  const MediumGame = () => {
+    // mediummode()
+    ShowGame();
+  }
+
+  const HardGame = () => {
+    // hardmode()
+    ShowGame();
+  }
+
+  
 
   // handleNext function to update the currentIndex and nextIndex
   const handleNext = () => {
@@ -115,25 +134,23 @@ const Game = () => {
     setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
-    setHint(0);
   };
 
   // handleInputChange function to update the userAnswers
   const handleInputChange = (e, key) => {
     setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
-  
+
   const handleHint = (info) => {
     setHint(hint + 1)
     alert(info);
   }
-
+  
   // handleSubmission function to calculate the score
   const handleSubmission = () => {
-
     const retirerAccents = str =>
       str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
+    
     const scoreGet = 
       (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(artist).toLowerCase() ? 100 : 0 )+
       (retirerAccents(userAnswers.date).toLowerCase() === retirerAccents(date).toLowerCase() ? 100 : 0) +
@@ -149,40 +166,44 @@ const Game = () => {
     setInputDisabled(true);
   };
 
+ 
+
+
   
   return (
    <div className = "backGround"> 
-     {/* show the start page */}
-     {showStart && (
+    {/* show the start page */}
+    {showStart && !showGame && (
       <div className="centered">
-        <div className="imageRolling">
+        <div className="sliding-images-container">
+          <div className="sliding-images" />
         </div>
-            
-        <div className="start-title">
+      {/* introduction */}
+      {!showChoice && (
+        <div className="start-container">
+          <div className="start-title">Artwork Guessing</div>
+          <div className="intro-box">
+            <div className="intro-content">Introduction here, auto new-line </div>
+          </div>
+          <button className="buttonStart" onClick={ShowChoice}>Start Game</button>
         </div>
-        
-        <div className="start-intro">
+      )}
+      {/* show the choice */}
+      {showChoice && (
+        <div className="choice-button-container">
+          <button className="choice-button-easy" onClick={EasyGame}>Easy</button>
+          <button className="choice-button-medium" onClick={MediumGame}>Medium</button>
+          <button className="choice-button-hard" onClick={HardGame}>Hard</button>
         </div>
-
-        <div className="start-button">
-        </div>
+      )}
       </div>
     )}
+    
 
-    {/* show the choice page */}
-    {showChoice && (
-      <div>
-        <div className="choice-image">
-        </div>
-        <div className="choice-button">
-        </div>
-        <div className="return-button">
-        </div>
-      </div>
-    )}
+    
 
     {/* show the game page */}
-    {showGame && (  
+    {showGame && !showStart && !showChoice && (    
       <div>  
         <h1>Art Guessr</h1>
         <div className="centered"> {}
@@ -192,7 +213,7 @@ const Game = () => {
           <div className = "row">
             <input type="text" 
                   value={userAnswers.title}
-                  disabled={showAnswer || inputDisabled}
+                  disabled={showAnswer || inputDisabled} 
                   placeholder='Title' 
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
@@ -203,9 +224,9 @@ const Game = () => {
           <div className = "row">
             <input type="text" 
                   value= {userAnswers.artist}
-                  disabled={showAnswer || inputDisabled}
-                  placeholder='Artist' 
+                  disabled={showAnswer || inputDisabled} 
                   className = "inputCustom" 
+                  placeholder='Artist'
                   style = {{marginRight : "10px"}}
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
@@ -216,8 +237,8 @@ const Game = () => {
             <input type="text" 
                   value= {userAnswers.date}
                   disabled={showAnswer || inputDisabled} 
-                  placeholder='Date'
                   className = "inputCustom" 
+                  placeholder='Date'
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
@@ -225,6 +246,7 @@ const Game = () => {
             {showAnswer && <div className="answer">Right answer: {date}</div>}
           </div>
           <div className = "row" style ={{marginLeft:"40px"}}>
+            <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
             <button className = "button" onClick={handleNext}>Next</button>
           </div>
@@ -232,12 +254,15 @@ const Game = () => {
               <div className={inputDisabled ? 'score-box visble' : 'score-box'}>
                 <div className='scoreround'>Score of this round: {scoreRound}</div>
               </div>
+            
           </div>
         </div>
+        
+        {/* show the ranking */}
+        {/*
         <div className="ranking-container">
             <div className="ranking-title">Ranking</div>
             <div className="ranking-list">
-              {/* create 10 rows */}
               {[...Array(15)].map((_, index) => (
                 <div className="ranking-item" key={index}>
                   <span>#{index + 1}</span>
@@ -250,10 +275,14 @@ const Game = () => {
                 <span>Score: {userRank.score}</span>
             </div>
         </div>
-          <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
+        */}
+        
+        <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
             <div className="infor-title">Extra Information</div>
             <div className="inforcontent">{info}</div>
         </div>
+
+        <button className="exit-button" onClick={ShowStart}>Exit</button>
       </div>
     )}
   </div>
