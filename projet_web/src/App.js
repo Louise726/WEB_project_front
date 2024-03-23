@@ -207,7 +207,7 @@ const Game = () => {
       <div>  
         <h1>Art Guessr</h1>
         <div className="centered"> {}
-          <div className = "row">
+          <div>
             <img src={url} alt="Artwork" height="300" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
           </div>
           <div className = "row">
@@ -245,8 +245,7 @@ const Game = () => {
             <button className="buttonHint" onClick={() => handleHint(date)}>Hint</button>
             {showAnswer && <div className="answer">Right answer: {date}</div>}
           </div>
-          <div className = "row" style ={{marginLeft:"40px"}}>
-            <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
+          <div className = "row" >
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
             <button className = "button" onClick={handleNext}>Next</button>
           </div>
