@@ -2,7 +2,6 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 
-const xappToken = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsInN1YmplY3RfYXBwbGljYXRpb24iOiIyYWI0YWQwMS0yNzVhLTQxMDQtYjZlOC1mOTYyMjc3Mzk4ZTAiLCJleHAiOjE3MTE3MDczODAsImlhdCI6MTcxMTEwMjU4MCwiYXVkIjoiMmFiNGFkMDEtMjc1YS00MTA0LWI2ZTgtZjk2MjI3NzM5OGUwIiwiaXNzIjoiR3Jhdml0eSIsImp0aSI6IjY1ZmQ1YTc0NDVjNjE1MDAwYjRkNzFkZCJ9.nVFYDBd7LIpr9ovqPJnk6hOWhCAduwrD6RnuUYNqAf8';
 const URL = 'https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4' //andy warhol
 //const URL = 'https://api.artsy.net/api/artists/leonardo-da-vinci' //léonard de vinci
 
@@ -15,7 +14,7 @@ function App() {
       const result = await fetch(URL, {
         method : 'GET',
         headers : {
-          'X-Xapp-Token': xappToken
+          'X-Xapp-Token': process.env.TOKEN
         },
       })
         .then(response => response.json())
@@ -44,21 +43,21 @@ const imageData = [
     info: 'Info on painting 1'
   },
   {
-    url: 'url_to_image2',
-    title: 'Title 2',
-    artist: 'Artist 2',
-    date: 'Date 2',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/JEAN_LOUIS_TH%C3%89ODORE_G%C3%89RICAULT_-_La_Balsa_de_la_Medusa_%28Museo_del_Louvre%2C_1818-19%29.jpg/1024px-JEAN_LOUIS_TH%C3%89ODORE_G%C3%89RICAULT_-_La_Balsa_de_la_Medusa_%28Museo_del_Louvre%2C_1818-19%29.jpg',
+    title: 'Le radeau de la méduse',
+    artist: 'Théodore Géricault',
+    date: '1819',
     info: 'Info on painting 2'
   },
   {
-    url: 'url_to_image3',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Jean-Fran%C3%A7ois_Millet_-_The_Sower_-_Google_Art_Project.jpg/390px-Jean-Fran%C3%A7ois_Millet_-_The_Sower_-_Google_Art_Project.jpg',
     title: 'Title 3',
     artist: 'Artist 3',
     date: 'Date 3',
     info: 'Info on painting 3'
   },
   {
-    url: 'url_to_image4',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nature_morte_aux_pommes_et_aux_oranges%2C_par_Paul_C%C3%A9zanne.jpg/390px-Nature_morte_aux_pommes_et_aux_oranges%2C_par_Paul_C%C3%A9zanne.jpg',
     title: 'Title 4',
     artist: 'Artist 4',
     date: 'Date 4',
@@ -68,12 +67,13 @@ const imageData = [
 ];
 
 const Game = () => {
-  const[showStart, setShowStart] = useState(true);
+  const[showStart, setShowStart] = useState(false);
   const[showChoice, setShowChoice] = useState(false);
-  const[showGame, setShowGame] = useState(false);
+  const[showGame, setShowGame] = useState(true);
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(0);
+  const [hint, setHint] = useState(0);
   
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
@@ -115,6 +115,7 @@ const Game = () => {
     setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
+    setHint(0);
   };
 
   // handleInputChange function to update the userAnswers
@@ -122,13 +123,24 @@ const Game = () => {
     setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
   
+  const handleHint = (info) => {
+    setHint(hint + 1)
+    alert(info);
+  }
+
   // handleSubmission function to calculate the score
   const handleSubmission = () => {
+
+    const retirerAccents = str =>
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     const scoreGet = 
-      (userAnswers.artist.toLowerCase() === artist.toLowerCase() ? 1 : 0 )+
-      (userAnswers.date.toLowerCase() === date.toLowerCase() ? 1 : 0) +
-      (userAnswers.title.toLowerCase() === title.toLowerCase() ? 1 : 0);
+      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(artist).toLowerCase() ? 100 : 0 )+
+      (retirerAccents(userAnswers.date).toLowerCase() === retirerAccents(date).toLowerCase() ? 100 : 0) +
+      (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(title).toLowerCase() ? 100 : 0) -
+      hint * 50 ;
     
+    setShowAnswer(true)
     setScoreRound(scoreGet);  
     setUserRank(prevState =>({
       ...prevState,
@@ -140,8 +152,8 @@ const Game = () => {
   
   return (
    <div className = "backGround"> 
-    {/* show the start page */}
-    {showStart && (
+     {/* show the start page */}
+     {showStart && (
       <div className="centered">
         <div className="imageRolling">
         </div>
@@ -170,59 +182,56 @@ const Game = () => {
     )}
 
     {/* show the game page */}
-    {showGame && (    
+    {showGame && (  
       <div>  
         <h1>Art Guessr</h1>
         <div className="centered"> {}
           <div className = "row">
-            <img src={url} alt="Artwork" height="200" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
+            <img src={url} alt="Artwork" height="300" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
           </div>
           <div className = "row">
-            <label>Title: </label>
             <input type="text" 
                   value={userAnswers.title}
-                  disabled={showAnswer || inputDisabled} 
+                  disabled={showAnswer || inputDisabled}
+                  placeholder='Title' 
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'title')}/>
-            <button className="buttonHint" onClick={() => alert(title)}>Hint</button>
-            {showAnswer && <div className="answer">Answer: {title}</div>}
+            <button className="buttonHint" onClick={() => handleHint(title)}>Hint</button>
+            {showAnswer && <div className="answer">Right answer: {title}</div>}
           </div>
           <div className = "row">
-            <label>Artist: </label>
             <input type="text" 
                   value= {userAnswers.artist}
-                  disabled={showAnswer || inputDisabled} 
+                  disabled={showAnswer || inputDisabled}
+                  placeholder='Artist' 
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
-            <button className="buttonHint" onClick={() => alert(artist)}>Hint</button>
-            {showAnswer && <div className="answer">Answer: {artist}</div>}
+            <button className="buttonHint" onClick={() => handleHint(artist)}>Hint</button>
+            {showAnswer && <div className="answer">Right answer: {artist}</div>}
           </div>
           <div className = "row">
-            <label>Date: </label>
             <input type="text" 
                   value= {userAnswers.date}
                   disabled={showAnswer || inputDisabled} 
+                  placeholder='Date'
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
-            <button className="buttonHint" onClick={() => alert(date)}>Hint</button>
-            {showAnswer && <div className="answer">Answer: {date}</div>}
+            <button className="buttonHint" onClick={() => handleHint(date)}>Hint</button>
+            {showAnswer && <div className="answer">Right answer: {date}</div>}
           </div>
           <div className = "row" style ={{marginLeft:"40px"}}>
-            <button className = "button" onClick={() => setShowAnswer(true)} style= {{marginRight : "10px"}}>Show Answer</button>
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
             <button className = "button" onClick={handleNext}>Next</button>
           </div>
           <div className="row">
-            {inputDisabled && (
-              <div className='custom-box'>
+              <div className={inputDisabled ? 'score-box visble' : 'score-box'}>
                 <div className='scoreround'>Score of this round: {scoreRound}</div>
               </div>
-            )}
           </div>
         </div>
         <div className="ranking-container">
@@ -241,7 +250,7 @@ const Game = () => {
                 <span>Score: {userRank.score}</span>
             </div>
         </div>
-        <div className="extraInfor"> 
+          <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
             <div className="infor-title">Extra Information</div>
             <div className="inforcontent">{info}</div>
         </div>
@@ -251,5 +260,5 @@ const Game = () => {
   );
 }
 
-export default App;
+export default Game;
 
