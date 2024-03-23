@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
-
 const xappToken = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsInN1YmplY3RfYXBwbGljYXRpb24iOiIyYWI0YWQwMS0yNzVhLTQxMDQtYjZlOC1mOTYyMjc3Mzk4ZTAiLCJleHAiOjE3MTE3MDczODAsImlhdCI6MTcxMTEwMjU4MCwiYXVkIjoiMmFiNGFkMDEtMjc1YS00MTA0LWI2ZTgtZjk2MjI3NzM5OGUwIiwiaXNzIjoiR3Jhdml0eSIsImp0aSI6IjY1ZmQ1YTc0NDVjNjE1MDAwYjRkNzFkZCJ9.nVFYDBd7LIpr9ovqPJnk6hOWhCAduwrD6RnuUYNqAf8';
 const URL = 'https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4' //andy warhol
 //const URL = 'https://api.artsy.net/api/artists/leonardo-da-vinci' //léonard de vinci
@@ -87,7 +86,9 @@ const Game = () => {
     artist: '',
     date: '',
   });
+
   
+  // fonctions to show the different pages
   const ShowStart = () => {
     setShowStart(true);
     setShowChoice(false);
@@ -95,9 +96,7 @@ const Game = () => {
   }
   
   const ShowChoice = () => {
-    setShowStart(false);
     setShowChoice(true);
-    setShowGame(false);
   }
   
   const ShowGame = () => {
@@ -105,7 +104,23 @@ const Game = () => {
     setShowChoice(false);
     setShowGame(true);
   }
+  
+  const EasyGame = () => {
+    // easymode()
+    ShowGame();
+  }
 
+  const MediumGame = () => {
+    // mediummode()
+    ShowGame();
+  }
+
+  const HardGame = () => {
+    // hardmode()
+    ShowGame();
+  }
+
+  
 
   // handleNext function to update the currentIndex and nextIndex
   const handleNext = () => {
@@ -137,40 +152,44 @@ const Game = () => {
     setInputDisabled(true);
   };
 
+ 
+
+
   
   return (
    <div className = "backGround"> 
     {/* show the start page */}
-    {showStart && (
+    {showStart && !showGame && (
       <div className="centered">
-        <div className="imageRolling">
+        <div className="sliding-images-container">
+          <div className="sliding-images" />
         </div>
-            
-        <div className="start-title">
+      {/* introduction */}
+      {!showChoice && (
+        <div className="start-container">
+          <div className="start-title">Artwork Guessing</div>
+          <div className="intro-box">
+            <div className="intro-content">Introduction here, auto new-line </div>
+          </div>
+          <button className="buttonStart" onClick={ShowChoice}>Start Game</button>
         </div>
-        
-        <div className="start-intro">
+      )}
+      {/* show the choice */}
+      {showChoice && (
+        <div className="choice-button-container">
+          <button className="choice-button-easy" onClick={EasyGame}>Easy</button>
+          <button className="choice-button-medium" onClick={MediumGame}>Medium</button>
+          <button className="choice-button-hard" onClick={HardGame}>Hard</button>
         </div>
-
-        <div className="start-button">
-        </div>
+      )}
       </div>
     )}
+    
 
-    {/* show the choice page */}
-    {showChoice && (
-      <div>
-        <div className="choice-image">
-        </div>
-        <div className="choice-button">
-        </div>
-        <div className="return-button">
-        </div>
-      </div>
-    )}
+    
 
     {/* show the game page */}
-    {showGame && (    
+    {showGame && !showStart && !showChoice && (    
       <div>  
         <h1>Art Guessr</h1>
         <div className="centered"> {}
@@ -225,10 +244,12 @@ const Game = () => {
             )}
           </div>
         </div>
+        
+        {/* show the ranking */}
+        {/*
         <div className="ranking-container">
             <div className="ranking-title">Ranking</div>
             <div className="ranking-list">
-              {/* create 10 rows */}
               {[...Array(15)].map((_, index) => (
                 <div className="ranking-item" key={index}>
                   <span>#{index + 1}</span>
@@ -241,15 +262,19 @@ const Game = () => {
                 <span>Score: {userRank.score}</span>
             </div>
         </div>
+        */}
+        
         <div className="extraInfor"> 
             <div className="infor-title">Extra Information</div>
             <div className="inforcontent">{info}</div>
         </div>
+
+        <button className="exit-button" onClick={ShowStart}>Exit</button>
       </div>
     )}
   </div>
   );
 }
 
-export default App;
+export default Game;
 
