@@ -98,6 +98,9 @@ const Game = () => {
     setHint(0);
     setShowAnswer(false);
     setInputDisabled(false);
+    setUserAnswers({ title: '',artist: '', date: ''});
+    setCurrentIndex(0);
+    setNextIndex(0);
   }
   
   const ShowChoice = () => {
