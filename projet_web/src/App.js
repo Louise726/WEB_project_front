@@ -1,5 +1,62 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
+import 'whatwg-fetch';
+
+class CommentBox extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data : [],
+      _id : "",
+      title: "",
+      artist: "",
+      date: "",
+      image: "",
+      more_info: "",
+      error: null
+  };
+  this.pollInterval = null;
+}
+  componentDidMount() {
+    this.loadArtworksFromServer();
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadArtworksFromServer, 2000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.pollInterval) clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
+
+  loadArtworksFromServer = () => {
+    // fetch returns a promise. If you are not familiar with promises, see
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    fetch('/api/arts')
+      .then(data => data.json())
+      .then((res) => {
+        if (!res.success) this.setState({ error: res.error });
+        else this.setState({ data: res.data });
+      });
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="comments">
+          <h2>Comments:</h2>
+          data={this.state.data}
+        </div>
+        <div className="form">
+          {/*{this.state.date} text={this.state.more_info}*/}
+        </div>
+        {this.state.error && <p>{this.state.error}</p>}
+      </div>
+    );
+  }
+}
+
+//export default CommentBox;
 
 
 /*const URL = 'https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4' //andy warhol
@@ -285,5 +342,5 @@ const Game = () => {
   );
 }
 
-export default Game;
+export default CommentBox;
 
