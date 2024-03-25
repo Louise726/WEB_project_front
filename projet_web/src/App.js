@@ -209,8 +209,9 @@ const Game = () => {
     {/* show the game page */}
     {showGame && !showStart && !showChoice && (    
       <div>  
-        <div className='game-title'>Art Guessr</div>
+        <div className='game-title'></div>
         <div className="centered-game"> {}
+          <div className="logo"></div>
           <div>
             <img src={url} alt="Artwork" height="300" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
           </div>
