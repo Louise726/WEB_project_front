@@ -94,6 +94,10 @@ const Game = () => {
     setShowStart(true);
     setShowChoice(false);
     setShowGame(false);
+    setScoreRound(0);
+    setHint(0);
+    setShowAnswer(false);
+    setInputDisabled(false);
   }
   
   const ShowChoice = () => {
