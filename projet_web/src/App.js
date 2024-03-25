@@ -189,15 +189,15 @@ const Game = () => {
           <div className="intro-box">
             <div className="intro-content">Introduction here, auto new-line </div>
           </div>
-          <button className="buttonStart" onClick={ShowChoice}>Start Game</button>
+          <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
         </div>
       )}
       {/* show the choice */}
       {showChoice && (
         <div className="choice-button-container">
-          <button className="choice-button-easy" onClick={EasyGame}>Easy</button>
-          <button className="choice-button-medium" onClick={MediumGame}>Medium</button>
-          <button className="choice-button-hard" onClick={HardGame}>Hard</button>
+          <button className="choice-button-easy" onClick={EasyGame}>Facile</button>
+          <button className="choice-button-medium" onClick={MediumGame}>Moyen</button>
+          <button className="choice-button-hard" onClick={HardGame}>Difficile</button>
         </div>
       )}
       </div>
@@ -218,11 +218,11 @@ const Game = () => {
             <input type="text" 
                   value={userAnswers.title}
                   disabled={showAnswer || inputDisabled} 
-                  placeholder='Title' 
+                  placeholder='Titre' 
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'title')}/>
-            <button className="buttonHint" onClick={() => handleHint(title)}>Hint</button>
+            <button className="buttonHint" onClick={() => handleHint(title)}>Indice</button>
             {showAnswer && <div className="answer">Right answer: {title}</div>}
           </div>
           <div className = "row">
@@ -230,11 +230,11 @@ const Game = () => {
                   value= {userAnswers.artist}
                   disabled={showAnswer || inputDisabled} 
                   className = "inputCustom" 
-                  placeholder='Artist'
+                  placeholder='Artiste'
                   style = {{marginRight : "10px"}}
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
-            <button className="buttonHint" onClick={() => handleHint(artist)}>Hint</button>
+            <button className="buttonHint" onClick={() => handleHint(artist)}>Indice</button>
             {showAnswer && <div className="answer">Right answer: {artist}</div>}
           </div>
           <div className = "row">
@@ -246,12 +246,12 @@ const Game = () => {
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
-            <button className="buttonHint" onClick={() => handleHint(date)}>Hint</button>
+            <button className="buttonHint" onClick={() => handleHint(date)}>Indice</button>
             {showAnswer && <div className="answer">Right answer: {date}</div>}
           </div>
           <div className = "row" >
-            <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Submit</button>
-            <button className = "button" onClick={handleNext}>Next</button>
+            <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Valider</button>
+            <button className = "button" onClick={handleNext}>Suivant</button>
           </div>
           <div className="row">
               <div className={inputDisabled ? 'score-box visible' : 'score-box'}>
@@ -281,11 +281,11 @@ const Game = () => {
         */}
         
         <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
-            <div className="infor-title">Extra Information</div>
+            <div className="infor-title">Informations complémentaires</div>
             <div className="inforcontent">{info}</div>
         </div>
 
-        <button className="exit-button" onClick={ShowStart}>Exit</button>
+        <button className="exit-button" onClick={ShowStart}>Quitter</button>
       </div>
     )}
   </div>
