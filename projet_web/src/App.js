@@ -198,6 +198,7 @@ const Game = () => {
           <button className="choice-button-easy" onClick={EasyGame}>Facile</button>
           <button className="choice-button-medium" onClick={MediumGame}>Moyen</button>
           <button className="choice-button-hard" onClick={HardGame}>Difficile</button>
+          <button className="exit-button" onClick={ShowStart}>Quitter</button>
         </div>
       )}
       </div>

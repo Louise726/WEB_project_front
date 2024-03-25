@@ -116,10 +116,12 @@
   cursor: pointer;
   margin-bottom: 20px;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
 }
 
 .buttonStart:hover {
-  background-color: #04fc5bcc; 
+  background-color: #04fc5bcc;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  
 }
 
 
@@ -214,6 +216,7 @@
   background-size: cover;
   background-color: transparent;
   z-index: -1; 
+  filter: blur(3px);
   padding: 1px 0; 
   margin: 0;
 }
@@ -281,10 +284,12 @@
   border-radius: 5px; /* set border radius */
   cursor: pointer; /* change cursor to pointer */
   transition: background-color 0.3s; /* add the transition effect */
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
 }
 
 .button:hover {
   background-color: #e5eaf0dd; /* change background color when hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 .buttonHint {
@@ -297,10 +302,12 @@
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
 }
 
 .buttonHint:hover {
   background-color: #e5eaf0e9;  
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 
@@ -440,9 +447,10 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
 }
 
 .exit-button:hover {
-  background-color: #6dc851; 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #04fc5bcc; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
