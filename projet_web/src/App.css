@@ -64,7 +64,7 @@
 
 .start-container {
   position: fixed;
-  top: 12%;
+  top: 25%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,7 +72,15 @@
   height: 100vh; 
 }
 
-
+.logo-title {
+  position: fixed;
+  left: center;
+  top: 220px;
+  width: 300px;
+  height: 300px;
+  background-image: url('/public/logo.png');
+  background-size: cover;
+}
 
 .start-title {
   font-size: 48px;
@@ -378,8 +386,8 @@
 
 .extraInfor{
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 180px;
+  left: 20px;
   width: 20%;
   height: 75%;
   border-radius: 10px; 
@@ -392,8 +400,8 @@
 
 .extraInfor.visible{
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 180px;
+  left: 20px;
   width: 20%;
   height: 75%;
   border-radius: 10px; 

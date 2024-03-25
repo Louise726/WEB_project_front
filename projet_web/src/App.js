@@ -185,7 +185,7 @@ const Game = () => {
       {/* introduction */}
       {!showChoice && (
         <div className="start-container">
-          <div className="start-title">Artwork Guessing</div>
+          <div className="logo-title"></div>
           <div className="intro-box">
             <div className="intro-content">Introduction here, auto new-line </div>
           </div>
