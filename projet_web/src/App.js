@@ -1,5 +1,3 @@
-
-
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
@@ -77,7 +75,6 @@ const Game = () => {
   const [nextIndex, setNextIndex] = useState(0);
   const [hint, setHint] = useState(0);
 
-  
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
   
@@ -124,8 +121,6 @@ const Game = () => {
     ShowGame();
   }
 
-  
-
   // handleNext function to update the currentIndex and nextIndex
   const handleNext = () => {
     setShowAnswer(false);
@@ -134,6 +129,8 @@ const Game = () => {
     setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
+    setScoreRound(0);
+    setHint(0);
   };
 
   // handleInputChange function to update the userAnswers
@@ -205,8 +202,8 @@ const Game = () => {
     {/* show the game page */}
     {showGame && !showStart && !showChoice && (    
       <div>  
-        <h1>Art Guessr</h1>
-        <div className="centered"> {}
+        <div className='game-title'>Art Guessr</div>
+        <div className="centered-game"> {}
           <div>
             <img src={url} alt="Artwork" height="300" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
           </div>
@@ -250,8 +247,8 @@ const Game = () => {
             <button className = "button" onClick={handleNext}>Next</button>
           </div>
           <div className="row">
-              <div className={inputDisabled ? 'score-box visble' : 'score-box'}>
-                <div className='scoreround'>Score of this round: {scoreRound}</div>
+              <div className={inputDisabled ? 'score-box visible' : 'score-box'}>
+                <div className='scoreround'>Score: {scoreRound}</div>
               </div>
             
           </div>

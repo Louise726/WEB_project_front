@@ -29,6 +29,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /*background-color: #f1eef434;
+  padding-left: 20px;
+  padding-right: 20px;*/
   height: 100vh;
 }
 
@@ -193,7 +196,7 @@
 
 
 /* page of game */
-h1 {
+.game-title {
   position: fixed;
   top: 0;
   left: 0;
@@ -202,8 +205,20 @@ h1 {
   color: rgb(34, 33, 33); 
   padding: 1px 0; 
   margin: 0;
-  text-align: center;
+  text-align: left;
+  vertical-align: middle;
   font-weight: bold;
+}
+
+.centered-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1eef434;
+  border-radius: 10px;
+  padding: 20px;
+  height: 95%;
 }
 
 .row {
@@ -215,6 +230,7 @@ h1 {
   color: #824141; 
   /*margin-bottom: 10px; */
   font-weight: bold;
+  text-align: center;
 }
 
 .inputCustom {
@@ -269,42 +285,6 @@ h1 {
   background-color: #e5eaf0e9;  
 }
 
-.score-box {
-  position : fixed;
-  top: 90%;
-  left: 35%;
-  width : 28%;
-  height : 3%;
-  border-radius: 10px; 
-  background-color: rgba(255, 255, 255, 0.232); 
-  padding: 20px; 
-  overflow-y: auto;
-  word-wrap: break-word;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.score-box.visble {
-  position : fixed;
-  top: 90%;
-  left: 35%;
-  width : 28%;
-  height : 3%;
-  border-radius: 10px; 
-  background-color: rgba(255, 255, 255, 0.232); 
-  padding: 20px; 
-  overflow-y: auto;
-  word-wrap: break-word;
-  opacity: 1;
-}
-
-.scoreround {
-  font-size: 20px; 
-  color:  #824141;
-  margin-top: 3px;
-  font-weight: bold;
-  text-align: center;
-}
 
 .ranking-container {
   position: fixed;
@@ -345,17 +325,54 @@ h1 {
   color: #ce1eb4;
 }
 
+
 .fade-out {
   transition : opacity 0.3s ease-out; /* add the transition effect */
   opacity: 0; /* set the opacity to 0 */
 }
 
+.score-box {
+  position : fixed;
+  top: 80%;
+  right: 20px;
+  width : 20%;
+  height : 7%;
+  border-radius: 10px; 
+  background-color: rgba(182, 178, 178, 0.277); 
+  /*padding: 20px;*/
+  word-wrap: break-word;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.score-box.visible {
+  position : fixed;
+  top: 80%;
+  right: 20px;
+  width : 20%;
+  height : 7%;
+  border-radius: 10px; 
+  background-color: rgba(182, 178, 178, 0.277); 
+  /*padding: 20px;*/
+  word-wrap: break-word;
+  opacity: 1;
+}
+
+.scoreround {
+  font-size: 20px; 
+  /*color:  #824141;*/
+  margin-top: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .extraInfor{
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 20px;
+  right: 20px;
   width: 20%;
-  height: 100vh;
+  height: 75%;
+  border-radius: 10px; 
   background-color: rgba(182, 178, 178, 0.277);
   display: flex;
   flex-direction: column;
@@ -365,10 +382,11 @@ h1 {
 
 .extraInfor.visible{
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 20px;
+  right: 20px;
   width: 20%;
-  height: 100vh;
+  height: 75%;
+  border-radius: 10px; 
   background-color: rgba(182, 178, 178, 0.277);
   display: flex;
   flex-direction: column;
@@ -379,6 +397,7 @@ h1 {
   text-align: center;
   font-size: 24px;
   padding: 20px 0;
+  font-weight: bold;
 }
 
 .inforcontent {
@@ -390,14 +409,14 @@ h1 {
 
 .exit-button {
   position: fixed;
-  right: 25px;
+  right: 100px;
   top: 90%;
   width: 100px;
   height: 30px;
   font-size: 16px;
   text-align: center;
   color: rgb(43, 39, 39);
-  background-color: #15bc2cb0;
+  background-color: #f1eef434;
   border: none;
   display: inline-block;
   border-radius: 5px;
@@ -406,6 +425,6 @@ h1 {
 }
 
 .exit-button:hover {
-  background-color: #3dc613; 
+  background-color: #6dc851; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
