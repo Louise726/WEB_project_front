@@ -13,12 +13,12 @@
 
 .backGround::before {
   content: '';
-  position: absolute; 
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/public/louvre.jpg');
+  background-image: url('/public/copie_hemis_2aynd4g-1300x865.png');
   background-size: cover;
   filter: blur(3px);    /* Add the blur effect */
   z-index: -1;      /* Place the background behind the content */

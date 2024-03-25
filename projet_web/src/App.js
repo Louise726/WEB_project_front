@@ -4,7 +4,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 
-const URL = 'https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4' //andy warhol
+/*const URL = 'https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4' //andy warhol
 //const URL = 'https://api.artsy.net/api/artists/leonardo-da-vinci' //léonard de vinci
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
       {attributs.name} est né en {attributs.birthday} à {attributs.hometown}
     </div>
   )
-}
+}*/
 
 const imageData = [
   {
