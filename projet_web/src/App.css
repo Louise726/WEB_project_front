@@ -18,7 +18,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/public/copie_hemis_2aynd4g-1300x865.png');
+  background-image: url('/public/fond.avif');
   background-size: cover;
   filter: blur(3px);    /* Add the blur effect */
   z-index: -1;      /* Place the background behind the content */
@@ -77,7 +77,7 @@
 
 .start-title {
   font-size: 48px;
-  color: #62107bd4; 
+  color: #383838d4; 
   margin-bottom: 60px;
   font-weight: bold;
 }
@@ -102,7 +102,7 @@
   height: 45px;
   font-size: 24px;
   color: rgb(43, 39, 39);
-  background-color: #2662ab8b;
+  background-color: #ecebebe9;
   border: none;
   display: inline-block;
   border-radius: 5px;
@@ -112,7 +112,7 @@
 }
 
 .buttonStart:hover {
-  background-color: #4a50c4c9; 
+  background-color: #04fc5bcc; 
 }
 
 
@@ -132,21 +132,21 @@
   height: 60px;
   font-size: 32px;
   text-align: center;
-  color: rgb(83, 79, 79);
-  background-color: #4cc26fa4;
+  color:rgb(85, 85, 85);
+  background-color: #f1eef434;
   border: none;
   margin: 20px 5px;
   display: inline-block;
   border-radius: 5px;
   cursor: pointer;
   border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);   
   transition: background-color 0.3s;
 }
 
 .choice-button-easy:hover {
-  background-color: #45a049; 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  background-color: #14f658a4; 
+  box-shadow: 0 8px 16px rgba(215, 215, 215, 0.2); 
 }
 
 .choice-button-medium {
@@ -154,20 +154,20 @@
   height: 60px;
   font-size: 32px;
   text-align: center;
-  color: rgb(83, 79, 79);
-  background-color: #2f7fca7c;
+  color: rgb(85, 85, 85);
+  background-color: #f1eef434;
   border: none;
   margin: 20px 5px;
   display: inline-block;
   border-radius: 5px;
   cursor: pointer;
   border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);   
   transition: background-color 0.3s;
 }
 
 .choice-button-medium:hover {
-  background-color: #245e94c9; 
+  background-color: #ff9900fe; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
@@ -176,20 +176,21 @@
   height: 60px;
   font-size: 32px;
   text-align: center;
-  color: rgb(83, 79, 79);
-  background-color: #c26f4c86;
+  color: rgb(85, 85, 85);
+  background-color: #f1eef434;
   border: none;
   margin: 20px 5px;
   display: inline-block;
   border-radius: 5px;
   cursor: pointer;
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);    
   transition: background-color 0.3s;
 }
 
 .choice-button-hard:hover {
-  background-color: #b95930bf; 
+  color: rgb(85, 85, 85);
+  background-color: #f60e0ebf; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
@@ -201,12 +202,15 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: transparent; 
+  height: 100%;
+  background-image: url('/public/copie_hemis_2aynd4g-1300x865.png');
+  background-size: cover;
+  background-color: transparent;
+  z-index: -1; 
   color: rgb(34, 33, 33); 
   padding: 1px 0; 
   margin: 0;
   text-align: left;
-  vertical-align: middle;
   font-weight: bold;
 }
 
