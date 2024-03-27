@@ -1,6 +1,6 @@
 # WEB_project_front
 
-Membres du groupes : Zhuangi Chen, Louise Marc, Anne-Gaëlle Mauger, Nelly Nguyen, Zixin Peng
+Membres du groupes : Zhuangi Chen, Louise Marc, Anne-Gaëlle Mauger, Nelly Nguyen, Zixin Peng (3TC2)
 
 ## Back-end et BDD
 
