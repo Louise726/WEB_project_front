@@ -129,7 +129,7 @@ const Game = () => {
     const selectedId = hardIds[randomIndex];
     let maybeData = data.find(item => item._id === selectedId);
     if (selectedData !== null){
-      while (maybeData === selectedData || selectedData !== null) {
+      while (maybeData === selectedData) {
         const randomIndex = Math.floor(Math.random() * hardIds.length);
         const selectedId = hardIds[randomIndex];
         maybeData = data.find(item => item._id === selectedId);
@@ -155,10 +155,11 @@ const Game = () => {
     alert(info);
   }
 
+  const retirerAccents = str => 
+    str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  
   // calcul du score en fonction des réponses 
   const handleSubmission = () => {
-    const retirerAccents = str =>
-      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     
     const scoreGet = 
       (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0 )+
@@ -246,8 +247,8 @@ const Game = () => {
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'title')}/>
             <button className="buttonHint" onClick={() => handleHint(selectedData.title)}>Indice</button>
-          </div>
-          {showAnswer && <div className="answer">Bonne Réponse: {selectedData.title}</div>}
+            {showAnswer && retirerAccents(userAnswers.title).toLowerCase() !== retirerAccents(selectedData.title).toLowerCase() &&<div className="answer">{selectedData.title}</div>}
+          </div>  
           <div className = "row">
             <input type="text" 
                   value= {userAnswers.artist}
@@ -258,8 +259,8 @@ const Game = () => {
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
             <button className="buttonHint" onClick={() => handleHint(selectedData.artist)}>Indice</button>
+            {showAnswer && retirerAccents(userAnswers.artist).toLowerCase() !== retirerAccents(selectedData.artist).toLowerCase() && <div className="answer">{selectedData.artist}</div>}
           </div>
-          {showAnswer && <div className="answer">Bonne Réponse: {selectedData.artist}</div>}
           <div className = "row">
             <input type="text" 
                   value= {userAnswers.date}
@@ -270,8 +271,8 @@ const Game = () => {
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
             <button className="buttonHint" onClick={() => handleHint(selectedData.date)}>Indice</button>
+            {showAnswer && retirerAccents(userAnswers.date).toLowerCase() !== retirerAccents(selectedData.date).toLowerCase() &&<div className="answer">{selectedData.date}</div>}
           </div>
-          {showAnswer && <div className="answer">Bonne Réponse: {selectedData.date}</div>}
           <div className = "row" >
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Valider</button>
             <button className = "button" onClick={handleNext}>Suivant</button>
