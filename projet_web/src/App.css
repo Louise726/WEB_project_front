@@ -67,10 +67,10 @@
 }
 
 .logo-title {
-  width: 80%;
-  height: 40%;
+  width: 95%;
+  height: 35%;
   background-image: url('/public/logo.png');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   margin-bottom: 10%
 }
