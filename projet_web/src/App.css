@@ -240,6 +240,7 @@
   color: #824141; 
   font-weight: bold;
   text-align: center;
+  word-wrap: break-word;
 }
 
 .inputCustom {
