@@ -141,7 +141,7 @@
 }
 
 .choice-button-easy:hover {
-  background-color: #14f658a4; 
+  background-color: #6ffe9acd; 
   box-shadow: 0 8px 16px rgba(215, 215, 215, 0.2); 
 }
 
@@ -163,7 +163,7 @@
 }
 
 .choice-button-medium:hover {
-  background-color: #ff9900fe; 
+  background-color: #ffbd5b; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
@@ -186,7 +186,7 @@
 
 .choice-button-hard:hover {
   color: rgb(85, 85, 85);
-  background-color: #f60e0ebf; 
+  background-color: #ff7070; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
