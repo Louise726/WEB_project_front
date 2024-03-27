@@ -3,96 +3,6 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import 'whatwg-fetch';
 
-const MyComponent = () => {
-  const [data, setData] = useState([]);
-  const [easyIds, setEasyIds] = useState([]);
-  const [mediumIds, setMediumIds] = useState([]);
-  const [hardIds, setHardIds] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/arts');
-        setData(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    // Filtrer les données par niveau et stocker les IDs dans les variables correspondantes
-    const easy = data.filter(item => item.level === 'facile').map(item => item._id);
-    const medium = data.filter(item => item.level === 'moyen').map(item => item._id);
-    const hard = data.filter(item => item.level === 'difficile').map(item => item._id);
-    
-    setEasyIds(easy);
-    setMediumIds(medium);
-    setHardIds(hard);
-  }, [data]);
-
-  return (
-    <div>
-      <h1>My Component</h1>
-      <h2>Easy IDs:</h2>
-      <ul>
-        {easyIds.map(id => (
-          <li key={id}>{id}</li>
-        ))}
-      </ul>
-      <h2>Medium IDs:</h2>
-      <ul>
-        {mediumIds.map(id => (
-          <li key={id}>{id}</li>
-        ))}
-      </ul>
-      <h2>Hard IDs:</h2>
-      <ul>
-        {hardIds.map(id => (
-          <li key={id}>{id}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-
-
-const imageData = [
-  {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Les_Deux_S%C5%93urs_ou_Sur_la_Terrasse.jpg/390px-Les_Deux_S%C5%93urs_ou_Sur_la_Terrasse.jpg',
-    title: 'Title 1',
-    artist: 'Artist 1',
-    date: 'Date 1',
-    info: 'Info on painting 1'
-  },
-  {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/JEAN_LOUIS_TH%C3%89ODORE_G%C3%89RICAULT_-_La_Balsa_de_la_Medusa_%28Museo_del_Louvre%2C_1818-19%29.jpg/1024px-JEAN_LOUIS_TH%C3%89ODORE_G%C3%89RICAULT_-_La_Balsa_de_la_Medusa_%28Museo_del_Louvre%2C_1818-19%29.jpg',
-    title: 'Le radeau de la méduse',
-    artist: 'Théodore Géricault',
-    date: '1819',
-    info: 'Info on painting 2'
-  },
-  {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Jean-Fran%C3%A7ois_Millet_-_The_Sower_-_Google_Art_Project.jpg/390px-Jean-Fran%C3%A7ois_Millet_-_The_Sower_-_Google_Art_Project.jpg',
-    title: 'Title 3',
-    artist: 'Artist 3',
-    date: 'Date 3',
-    info: 'Info on painting 3'
-  },
-  {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nature_morte_aux_pommes_et_aux_oranges%2C_par_Paul_C%C3%A9zanne.jpg/390px-Nature_morte_aux_pommes_et_aux_oranges%2C_par_Paul_C%C3%A9zanne.jpg',
-    title: 'Title 4',
-    artist: 'Artist 4',
-    date: 'Date 4',
-    info: 'Info on painting 4'
-  }
-  
-];
-
-
 
 const Game = () => {
   // connexion à la base de données
@@ -115,7 +25,6 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    // Filtrer les données par niveau et stocker les IDs dans les variables correspondantes
     const easy = data.filter(item => item.level === 'facile').map(item => item._id);
     const medium = data.filter(item => item.level === 'moyen').map(item => item._id);
     const hard = data.filter(item => item.level === 'difficile').map(item => item._id);
@@ -125,18 +34,20 @@ const Game = () => {
     setHardIds(hard);
   }, [data]);
 
+  // concernant l'affichage
   const[showStart, setShowStart] = useState(true);
   const[showChoice, setShowChoice] = useState(false);
   const[showGame, setShowGame] = useState(false);
   
-  const [selectedData, setSelectedData] = useState(null);
+  // choix level
   const [level, setLevel] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  
+  // jeu
   const [hint, setHint] = useState(0);
-
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
-  
-  const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
+  //const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
   const [scoreRound, setScoreRound] = useState(0);
   const [userAnswers, setUserAnswers] = useState({
     title: '',
@@ -155,8 +66,6 @@ const Game = () => {
     setShowAnswer(false);
     setInputDisabled(false);
     setUserAnswers({ title: '',artist: '', date: ''});
-    //setCurrentIndex(0);
-    //setNextIndex(0);
     setLevel(null);
     setSelectedData(null);
   }
@@ -171,6 +80,7 @@ const Game = () => {
     setShowGame(true);
   }
   
+  // différents niveaux
   const EasyGame = () => {
     setLevel('easy')
     const randomIndex = Math.floor(Math.random() * easyIds.length);
@@ -184,7 +94,7 @@ const Game = () => {
       }
     }
     if (maybeData) {
-      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      setSelectedData(maybeData);
       console.log(maybeData)
       ShowGame();
     } else {
@@ -205,7 +115,7 @@ const Game = () => {
       }
     }
     if (maybeData) {
-      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      setSelectedData(maybeData);
       console.log(maybeData)
       ShowGame();
     } else {
@@ -226,7 +136,7 @@ const Game = () => {
       }
     }
     if (maybeData) {
-      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      setSelectedData(maybeData);
       console.log(maybeData)
       ShowGame();
     } else {
@@ -234,7 +144,7 @@ const Game = () => {
     }
   }
 
-  // handleNext function to update the currentIndex and nextIndex
+  // passez à l'oeuvre suivante
   const handleNext = () => {
     setShowAnswer(false);
     if (level === 'easy') {
@@ -244,7 +154,6 @@ const Game = () => {
     } else if (level === 'hard') {
       HardGame()
     }
-    //setNextIndex(nextIndex);
     //setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
@@ -252,11 +161,12 @@ const Game = () => {
     setHint(0);
   };
 
-  // handleInputChange function to update the userAnswers
+  // mettre à jour les réponses de l'utilisateur
   const handleInputChange = (e, key) => {
     setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
-
+  
+  // 
   const handleHint = (info) => {
     setHint(hint + 1)
     alert(info);
@@ -280,10 +190,10 @@ const Game = () => {
     
     setShowAnswer(true)
     setScoreRound(scoreGet);  
-    setUserRank(prevState =>({
+    /*setUserRank(prevState =>({
       ...prevState,
       score: prevState.score + scoreGet
-    }));
+    }));*/
     setInputDisabled(true);
   };
 
@@ -320,9 +230,7 @@ const Game = () => {
       )}
       </div>
     )}
-    
 
-    
 
     {/* show the game page */}
     {showGame && !showStart && !showChoice && (    
