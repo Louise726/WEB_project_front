@@ -187,7 +187,7 @@ const Game = () => {
         <div className="start-container">
           <div className="logo-title"></div>
           <div className="intro-box">
-            <div className="intro-content">Introduction here, auto new-line </div>
+            <div className="intro-content">~ Découvrez votre flair artistique ~</div>
           </div>
           <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
         </div>
