@@ -1,10 +1,13 @@
 import './App.css';
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import 'whatwg-fetch';
 
 const MyComponent = () => {
   const [data, setData] = useState([]);
+  const [easyIds, setEasyIds] = useState([]);
+  const [mediumIds, setMediumIds] = useState([]);
+  const [hardIds, setHardIds] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,19 +22,42 @@ const MyComponent = () => {
     fetchData();
   }, []);
 
-  console.log(data);
+  useEffect(() => {
+    // Filtrer les données par niveau et stocker les IDs dans les variables correspondantes
+    const easy = data.filter(item => item.level === 'facile').map(item => item._id);
+    const medium = data.filter(item => item.level === 'moyen').map(item => item._id);
+    const hard = data.filter(item => item.level === 'difficile').map(item => item._id);
+    
+    setEasyIds(easy);
+    setMediumIds(medium);
+    setHardIds(hard);
+  }, [data]);
 
   return (
     <div>
       <h1>My Component</h1>
+      <h2>Easy IDs:</h2>
       <ul>
-        {data.map(item => (
-          <li key={item._id}>{item.title}</li>
+        {easyIds.map(id => (
+          <li key={id}>{id}</li>
+        ))}
+      </ul>
+      <h2>Medium IDs:</h2>
+      <ul>
+        {mediumIds.map(id => (
+          <li key={id}>{id}</li>
+        ))}
+      </ul>
+      <h2>Hard IDs:</h2>
+      <ul>
+        {hardIds.map(id => (
+          <li key={id}>{id}</li>
         ))}
       </ul>
     </div>
   );
 };
+
 
 
 const imageData = [
@@ -69,10 +95,41 @@ const imageData = [
 
 
 const Game = () => {
+  // connexion à la base de données
+  const [data, setData] = useState([]);
+  const [easyIds, setEasyIds] = useState([]);
+  const [mediumIds, setMediumIds] = useState([]);
+  const [hardIds, setHardIds] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/arts');
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Filtrer les données par niveau et stocker les IDs dans les variables correspondantes
+    const easy = data.filter(item => item.level === 'facile').map(item => item._id);
+    const medium = data.filter(item => item.level === 'moyen').map(item => item._id);
+    const hard = data.filter(item => item.level === 'difficile').map(item => item._id);
+    
+    setEasyIds(easy);
+    setMediumIds(medium);
+    setHardIds(hard);
+  }, [data]);
+
   const[showStart, setShowStart] = useState(true);
   const[showChoice, setShowChoice] = useState(false);
   const[showGame, setShowGame] = useState(false);
   
+  const [selectedData, setSelectedData] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(0);
   const [hint, setHint] = useState(0);
@@ -109,8 +166,16 @@ const Game = () => {
   }
   
   const EasyGame = () => {
-    // easymode()
-    ShowGame();
+    const randomIndex = Math.floor(Math.random() * easyIds.length);
+    const selectedId = easyIds[randomIndex];
+    const selectedData = data.find(item => item._id === selectedId);
+    if (selectedData) {
+      setSelectedData(selectedData); // Stockage des données sélectionnées dans l'état
+      console.log(selectedData)
+      ShowGame();
+    } else {
+      console.error('No data found for selected ID:', selectedId);
+    }
   }
 
   const MediumGame = () => {
@@ -287,5 +352,5 @@ const Game = () => {
   );
 }
 
-export default MyComponent;
+export default Game;
 
