@@ -72,6 +72,7 @@
   background-image: url('/public/logo.png');
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   margin-bottom: 10%
 }
 
@@ -142,7 +143,7 @@
 
 .choice-button-easy:hover {
   background-color: #6ffe9acd; 
-  box-shadow: 0 8px 16px rgba(215, 215, 215, 0.2); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 .choice-button-medium {
@@ -422,6 +423,7 @@
   padding: 10px 20px;
   /*color: #1f1e1e;*/
   overflow-y: auto;
+  text-align: justify;
 }
 
 .exit-button {
