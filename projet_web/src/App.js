@@ -130,14 +130,11 @@ const Game = () => {
   const[showGame, setShowGame] = useState(false);
   
   const [selectedData, setSelectedData] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(0);
+  const [level, setLevel] = useState(null);
   const [hint, setHint] = useState(0);
 
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
-  
-  const { url, title, artist, date, info } = imageData[currentIndex];
   
   const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
   const [scoreRound, setScoreRound] = useState(0);
@@ -158,8 +155,10 @@ const Game = () => {
     setShowAnswer(false);
     setInputDisabled(false);
     setUserAnswers({ title: '',artist: '', date: ''});
-    setCurrentIndex(0);
-    setNextIndex(0);
+    //setCurrentIndex(0);
+    //setNextIndex(0);
+    setLevel(null);
+    setSelectedData(null);
   }
   
   const ShowChoice = () => {
@@ -173,12 +172,20 @@ const Game = () => {
   }
   
   const EasyGame = () => {
+    setLevel('easy')
     const randomIndex = Math.floor(Math.random() * easyIds.length);
     const selectedId = easyIds[randomIndex];
-    const selectedData = data.find(item => item._id === selectedId);
-    if (selectedData) {
-      setSelectedData(selectedData); // Stockage des données sélectionnées dans l'état
-      console.log(selectedData)
+    let maybeData = data.find(item => item._id === selectedId);
+    if (selectedData !== null) {
+      while (maybeData === selectedData) {
+        const randomIndex = Math.floor(Math.random() * easyIds.length);
+        const selectedId = easyIds[randomIndex];
+        maybeData = data.find(item => item._id === selectedId);
+      }
+    }
+    if (maybeData) {
+      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      console.log(maybeData)
       ShowGame();
     } else {
       console.error('No data found for selected ID:', selectedId);
@@ -186,21 +193,59 @@ const Game = () => {
   }
 
   const MediumGame = () => {
-    // mediummode()
-    ShowGame();
+    setLevel('medium')
+    const randomIndex = Math.floor(Math.random() * mediumIds.length);
+    const selectedId = mediumIds[randomIndex];
+    let maybeData = data.find(item => item._id === selectedId);
+    if (selectedData !== null) {
+      while (maybeData === selectedData) {
+        const randomIndex = Math.floor(Math.random() * mediumIds.length);
+        const selectedId = mediumIds[randomIndex];
+        maybeData = data.find(item => item._id === selectedId);
+      }
+    }
+    if (maybeData) {
+      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      console.log(maybeData)
+      ShowGame();
+    } else {
+      console.error('No data found for selected ID:', selectedId);
+    }
   }
 
   const HardGame = () => {
-    // hardmode()
-    ShowGame();
+    setLevel('hard')
+    const randomIndex = Math.floor(Math.random() * hardIds.length);
+    const selectedId = hardIds[randomIndex];
+    let maybeData = data.find(item => item._id === selectedId);
+    if (selectedData !== null){
+      while (maybeData === selectedData || selectedData !== null) {
+        const randomIndex = Math.floor(Math.random() * hardIds.length);
+        const selectedId = hardIds[randomIndex];
+        maybeData = data.find(item => item._id === selectedId);
+      }
+    }
+    if (maybeData) {
+      setSelectedData(maybeData); // Stockage des données sélectionnées dans l'état
+      console.log(maybeData)
+      ShowGame();
+    } else {
+      console.error('No data found for selected ID:', selectedId);
+    }
   }
 
   // handleNext function to update the currentIndex and nextIndex
   const handleNext = () => {
     setShowAnswer(false);
-    const nextIndex=currentIndex === imageData.length - 1 ? 0 : currentIndex + 1;
-    setNextIndex(nextIndex);
-    setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
+    if (level === 'easy') {
+      EasyGame()
+    } else if (level === 'medium') {
+      MediumGame()
+    } else if (level === 'hard') {
+      HardGame()
+    }
+    //setNextIndex(nextIndex);
+    //setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
     setScoreRound(0);
@@ -223,9 +268,9 @@ const Game = () => {
       str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     
     const scoreGet = 
-      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(artist).toLowerCase() ? 100 : 0 )+
-      (retirerAccents(userAnswers.date).toLowerCase() === retirerAccents(date).toLowerCase() ? 100 : 0) +
-      (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(title).toLowerCase() ? 100 : 0) -
+      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0 )+
+      (retirerAccents(userAnswers.date).toLowerCase() === retirerAccents(selectedData.date).toLowerCase() ? 100 : 0) +
+      (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0) -
       hint * 50 ;
     
     setShowAnswer(true)
@@ -254,7 +299,7 @@ const Game = () => {
         <div className="start-container">
           <div className="logo-title"></div>
           <div className="intro-box">
-            <div className="intro-content">~ Découvrez votre flair artistique ~</div>
+            <div className="intro-content">~ Révelez votre flair artistique ~</div>
           </div>
           <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
         </div>
@@ -281,7 +326,7 @@ const Game = () => {
         <div className="centered-game"> {}
           <div className="logo"></div>
           <div>
-            <img src={url} alt="Artwork" height="300" className={nextIndex !== currentIndex ? "fade-out" : ""}/>
+            <img src={selectedData.image} alt="Artwork" height="300"/>
           </div>
           <div className = "row">
             <input type="text" 
@@ -291,8 +336,8 @@ const Game = () => {
                   className = "inputCustom" 
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'title')}/>
-            <button className="buttonHint" onClick={() => handleHint(title)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {title}</div>}
+            <button className="buttonHint" onClick={() => handleHint(selectedData.title)}>Indice</button>
+            {showAnswer && <div className="answer">Right answer: {selectedData.title}</div>}
           </div>
           <div className = "row">
             <input type="text" 
@@ -303,8 +348,8 @@ const Game = () => {
                   style = {{marginRight : "10px"}}
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
-            <button className="buttonHint" onClick={() => handleHint(artist)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {artist}</div>}
+            <button className="buttonHint" onClick={() => handleHint(selectedData.artist)}>Indice</button>
+            {showAnswer && <div className="answer">Right answer: {selectedData.artist}</div>}
           </div>
           <div className = "row">
             <input type="text" 
@@ -315,8 +360,8 @@ const Game = () => {
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
-            <button className="buttonHint" onClick={() => handleHint(date)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {date}</div>}
+            <button className="buttonHint" onClick={() => handleHint(selectedData.date)}>Indice</button>
+            {showAnswer && <div className="answer">Right answer: {selectedData.date}</div>}
           </div>
           <div className = "row" >
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Valider</button>
@@ -351,7 +396,7 @@ const Game = () => {
         
         <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
             <div className="infor-title">Informations complémentaires</div>
-            <div className="inforcontent">{info}</div>
+            <div className="inforcontent">{selectedData.more_info}</div>
         </div>
 
         <button className="exit-button" onClick={ShowStart}>Quitter</button>
