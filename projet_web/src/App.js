@@ -144,40 +144,18 @@ const Game = () => {
     }
   }
 
-  // passez à l'oeuvre suivante
-  const handleNext = () => {
-    setShowAnswer(false);
-    if (level === 'easy') {
-      EasyGame()
-    } else if (level === 'medium') {
-      MediumGame()
-    } else if (level === 'hard') {
-      HardGame()
-    }
-    //setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
-    setUserAnswers({ title: '',artist: '', date: ''}); 
-    setInputDisabled(false);
-    setScoreRound(0);
-    setHint(0);
-  };
-
   // mettre à jour les réponses de l'utilisateur
   const handleInputChange = (e, key) => {
     setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
   
-  // 
+  // gestion des indices
   const handleHint = (info) => {
     setHint(hint + 1)
     alert(info);
   }
 
-  const policestyle = {
-    fontFamily: "Monotype Corsiva",
-    fontSize : '30px'
-  }
-  
-  // handleSubmission function to calculate the score
+  // calcul du score en fonction des réponses 
   const handleSubmission = () => {
     const retirerAccents = str =>
       str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -197,9 +175,27 @@ const Game = () => {
     setInputDisabled(true);
   };
 
- 
+  // passez à l'oeuvre suivante
+  const handleNext = () => {
+    setShowAnswer(false);
+    if (level === 'easy') {
+      EasyGame()
+    } else if (level === 'medium') {
+      MediumGame()
+    } else if (level === 'hard') {
+      HardGame()
+    }
+    //setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
+    setUserAnswers({ title: '',artist: '', date: ''}); 
+    setInputDisabled(false);
+    setScoreRound(0);
+    setHint(0);
+  };
 
-
+  const policestyle = {
+    fontFamily: "Monotype Corsiva",
+    fontSize : '30px'
+  }
   
   return (
    <div className = "backGround"> 
