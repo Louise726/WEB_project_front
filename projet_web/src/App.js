@@ -292,7 +292,7 @@ const Game = () => {
                   style = {{marginRight : "10px"}}
                   onChange = {(e) => handleInputChange(e, 'title')}/>
             <button className="buttonHint" onClick={() => handleHint(title)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {title}</div>}
+            {showAnswer && <div className="answer">Bonne Réponse: {title}</div>}
           </div>
           <div className = "row">
             <input type="text" 
@@ -304,7 +304,7 @@ const Game = () => {
                   onChange= {(e) => handleInputChange(e, 'artist')}
                   />
             <button className="buttonHint" onClick={() => handleHint(artist)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {artist}</div>}
+            {showAnswer && <div className="answer">Bonne Réponse: {artist}</div>}
           </div>
           <div className = "row">
             <input type="text" 
@@ -316,7 +316,7 @@ const Game = () => {
                   onChange = {(e) => handleInputChange(e, 'date')}
                   />
             <button className="buttonHint" onClick={() => handleHint(date)}>Indice</button>
-            {showAnswer && <div className="answer">Right answer: {date}</div>}
+            {showAnswer && <div className="answer">Bonne Réponse: {date}</div>}
           </div>
           <div className = "row" >
             <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Valider</button>
