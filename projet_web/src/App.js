@@ -261,6 +261,11 @@ const Game = () => {
     setHint(hint + 1)
     alert(info);
   }
+
+  const policestyle = {
+    fontFamily: "Monotype Corsiva",
+    fontSize : '30px'
+  }
   
   // handleSubmission function to calculate the score
   const handleSubmission = () => {
@@ -296,10 +301,10 @@ const Game = () => {
         </div>
       {/* introduction */}
       {!showChoice && (
-        <div className="start-container">
+        <div className="start-container" style={policestyle}>
           <div className="logo-title"></div>
           <div className="intro-box">
-            <div className="intro-content">~ Révelez votre flair artistique ~</div>
+            <div className="intro-content" style ={policestyle}> Révelez votre flair artistique </div>
           </div>
           <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
         </div>

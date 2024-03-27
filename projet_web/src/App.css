@@ -79,8 +79,8 @@
 .intro-box {
   width: 100%;
   padding: 5%;
-  border-radius: 10px;
-  background-color: rgba(199, 198, 198, 0.988);   
+  background-color: rgba(254,237,170,0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);   
   text-align: center;
   overflow-y: auto;
   word-wrap: break-word;
@@ -89,7 +89,7 @@
 
 .intro-content {
   font-size: 20px;
-  color: #1f1e1e;
+  color: #434343;
 }
 
 .buttonStart {
