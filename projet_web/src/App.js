@@ -1,9 +1,12 @@
 import './App.css';
 import './transition.css';
-import React, { useState, useEffect} from 'react';
+import React, { createContext, useState,useEffect} from 'react';
+import Login from './Login';
+import Signup from './Signup';
 import axios from 'axios';
 import 'whatwg-fetch';
 import { CSSTransition } from 'react-transition-group';
+export const AuthContext = createContext();
 
 
 const Game = () => {
@@ -41,6 +44,13 @@ const Game = () => {
   const[showChoice, setShowChoice] = useState(false);
   const[showGame, setShowGame] = useState(false);
   
+  const [username, setUsername] = useState('');
+  const [showLog, setShowLog] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [viewedArts, setViewedArts] = useState([]);
+
   // choix level
   const [level, setLevel] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
@@ -63,6 +73,11 @@ const Game = () => {
     setShowStart(true);
     setShowChoice(false);
     setShowGame(false);
+
+    setIsLoggedIn(false);
+    setShowLog(false);
+    setUsername('');
+
     setScoreRound(0);
     setHint(0);
     setShowAnswer(false);
@@ -70,6 +85,21 @@ const Game = () => {
     setUserAnswers({ title: '',artist: '', date: ''});
     setLevel(null);
     setSelectedData(null);
+  }
+
+  const ShowLog = () => {
+    setShowLog(true);
+  }
+
+  const ShowSignup = () => {
+    setShowSignup(true);
+  }
+
+  const login_signup= (user) => {
+    setIsLoggedIn(true);
+    setUsername(user);
+    setShowChoice(true);
+    setViewedArts([]);
   }
   
   const ShowChoice = () => {
@@ -180,6 +210,12 @@ const Game = () => {
 
   // passez à l'oeuvre suivante
   const handleNext = () => {
+    const alreadyViewed = viewedArts.some(art => art._id === selectedData._id);
+
+    if (!alreadyViewed) {
+      setViewedArts(prevArts => [...prevArts, { _id: selectedData._id, title: selectedData.title, artist: selectedData.artist }]);
+    }
+
     setShowAnswer(false);
     if (level === 'easy') {
       EasyGame()
@@ -210,7 +246,7 @@ const Game = () => {
           </div>
           {/* introduction */}
           <CSSTransition
-            in={showStart && !showChoice}
+            in={showStart && !showChoice && !showLog && !showSignup}
             timeout={300}
             classNames="component"
             unmountOnExit
@@ -222,11 +258,38 @@ const Game = () => {
                   Révelez votre flair artistique
                 </div>
               </div>
-              <button className="buttonStart" onClick={ShowChoice}>
-                Démarrer
+              <button className="buttonStart" onClick={ShowSignup}>
+                Inscription
+              </button>
+              <button className="buttonStart" onClick={ShowLog}>
+                Connexion
               </button>
             </div>
           </CSSTransition>
+          {/* show the login interface */}
+          <CSSTransition
+            in={showLog}
+            timeout={300}
+            classNames="component"
+            unmountOnExit
+          >
+            <AuthContext.Provider value={{isLoggedIn,login_signup, username }}>
+              {isLoggedIn ? null: <Login onClose={() => setShowLog(false)} />}
+            </AuthContext.Provider>
+          </CSSTransition>
+
+          {/* show the signup interface */}
+          <CSSTransition
+            in={showSignup}
+            timeout={300}
+            classNames="component"
+            unmountOnExit
+          >
+            <AuthContext.Provider value={{isLoggedIn,login_signup, username }}>
+              {isLoggedIn ? null: <Signup onClose={() => setShowSignup(false)} />}
+            </AuthContext.Provider>
+          </CSSTransition>
+
           {/* show the choice */}
           <CSSTransition
             in={showChoice}
@@ -253,8 +316,21 @@ const Game = () => {
       )}
 
       {/* show the game page */}
-      {showGame && !showStart && !showChoice && ( 
-        <div>
+      {showGame && !showStart && !showChoice && (
+         <div>  
+        {/* Display welcome message and username */}
+        <div className="welcome-message" style ={policestyle}>
+          Bienvenue à {username} dans notre galerie d'art !
+        </div>
+        <div className="viewed-arts-container" style={{ ...policestyle, fontSize: '25px' }}>
+          <div style={{ textAlign: 'center' }}>Les oeuvres que vous avez vu:</div>     
+          <ul>
+            {viewedArts.map(art => (
+              <li key={art._id}>{art.title} - {art.artist}</li>
+            ))}
+          </ul>
+        </div> 
+        
           <div className="game-title"></div>
           <div className="centered-game">
             {}
@@ -323,7 +399,7 @@ const Game = () => {
                 Indice
               </button>
               {showAnswer &&
-                userAnswers.date !== selectedData.date && (
+                userAnswers.date !== String(selectedData.date) && (
                   <div className="answer">{selectedData.date}</div>
                 )}
             </div>
