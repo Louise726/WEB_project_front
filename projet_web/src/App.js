@@ -164,9 +164,9 @@ const Game = () => {
   const handleSubmission = () => {
     
     const scoreGet = 
-      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0 )+
-      (retirerAccents(userAnswers.date).toLowerCase() === retirerAccents(selectedData.date).toLowerCase() ? 100 : 0) +
-      (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0) -
+      (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0 )+
+      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0) +
+      (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0) -
       hint * 50 ;
     
     setShowAnswer(true)
@@ -274,7 +274,7 @@ const Game = () => {
               />
               <button
                 className="buttonHint"
-                onClick={() => handleHint(selectedData.title)}
+                onClick={() => handleHint(selectedData.title_hint)}
               >
                 Indice
               </button>
@@ -296,7 +296,7 @@ const Game = () => {
               />
               <button
                 className="buttonHint"
-                onClick={() => handleHint(selectedData.artist)}
+                onClick={() => handleHint(selectedData.artist_hint)}
               >
                 Indice
               </button>
@@ -312,34 +312,30 @@ const Game = () => {
                 value={userAnswers.date}
                 disabled={showAnswer || inputDisabled}
                 className="inputCustom"
-                placeholder="Date"
+                placeholder="Année (à + ou - 5 ans)"
                 style={{ marginRight: "10px" }}
                 onChange={(e) => handleInputChange(e, "date")}
               />
               <button
                 className="buttonHint"
-                onClick={() => handleHint(selectedData.date)}
+                onClick={() => handleHint(selectedData.date_hint)}
               >
                 Indice
               </button>
               {showAnswer &&
-                retirerAccents(userAnswers.date).toLowerCase() !==
-                  retirerAccents(selectedData.date).toLowerCase() && (
+                userAnswers.date !== selectedData.date && (
                   <div className="answer">{selectedData.date}</div>
                 )}
             </div>
             <div className="row">
-              <button
-                className="button"
-                disabled={inputDisabled}
-                onClick={handleSubmission}
-                style={{ marginRight: "10px" }}
-              >
+              {!inputDisabled &&
+              <button className="button" disabled={inputDisabled} onClick={handleSubmission}>
                 Valider
-              </button>
+              </button>}
+              {inputDisabled &&
               <button className="button" onClick={handleNext}>
                 Suivant
-              </button>
+              </button>}
             </div>
             <div className="row">
               <div className={inputDisabled ? "score-box visible" : "score-box"}>
