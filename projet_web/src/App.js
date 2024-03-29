@@ -1,5 +1,5 @@
 import './App.css';
-import './page.css';
+import './transition.css';
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import 'whatwg-fetch';
