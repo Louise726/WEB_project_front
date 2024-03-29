@@ -59,7 +59,6 @@ const Game = () => {
   const [hint, setHint] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
-  //const [userRank, setUserRank] = useState({ rank: 111, score: 11 });
   const [scoreRound, setScoreRound] = useState(0);
   const [userAnswers, setUserAnswers] = useState({
     title: '',
@@ -198,23 +197,20 @@ const Game = () => {
       (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0) +
       (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0) -
       hint * 50 ;
+
+    const alreadyViewed = viewedArts.some(art => art._id === selectedData._id);
+
+    if (!alreadyViewed) {
+      setViewedArts(prevArts => [...prevArts, { _id: selectedData._id, title: selectedData.title, artist: selectedData.artist, score: scoreGet}]);
+    }
     
     setShowAnswer(true)
     setScoreRound(scoreGet);  
-    /*setUserRank(prevState =>({
-      ...prevState,
-      score: prevState.score + scoreGet
-    }));*/
     setInputDisabled(true);
   };
 
   // passez à l'oeuvre suivante
   const handleNext = () => {
-    const alreadyViewed = viewedArts.some(art => art._id === selectedData._id);
-
-    if (!alreadyViewed) {
-      setViewedArts(prevArts => [...prevArts, { _id: selectedData._id, title: selectedData.title, artist: selectedData.artist }]);
-    }
 
     setShowAnswer(false);
     if (level === 'easy') {
@@ -224,7 +220,7 @@ const Game = () => {
     } else if (level === 'hard') {
       HardGame()
     }
-    //setTimeout(() => setCurrentIndex(nextIndex), 300);  // 300ms after the nextIndex is set, the currentIndex is updated,in order to show the transition effect
+    
     setUserAnswers({ title: '',artist: '', date: ''}); 
     setInputDisabled(false);
     setScoreRound(0);
@@ -317,21 +313,8 @@ const Game = () => {
 
       {/* show the game page */}
       {showGame && !showStart && !showChoice && (
-         <div>  
-        {/* Display welcome message and username */}
-        <div className="welcome-message" style ={policestyle}>
-          Bienvenue à {username} dans notre galerie d'art !
-        </div>
-        <div className="viewed-arts-container" style={{ ...policestyle, fontSize: '25px' }}>
-          <div style={{ textAlign: 'center' }}>Les oeuvres que vous avez vu:</div>     
-          <ul>
-            {viewedArts.map(art => (
-              <li key={art._id}>{art.title} - {art.artist}</li>
-            ))}
-          </ul>
-        </div> 
-        
-          <div className="game-title"></div>
+      <div>  
+        <div className="game-title"></div>
           <div className="centered-game">
             {}
             <div className="logo"></div>
@@ -420,33 +403,33 @@ const Game = () => {
             </div>
           </div>
 
-          {/* show the ranking */}
-          {/*
-          <div className="ranking-container">
-              <div className="ranking-title">Ranking</div>
-              <div className="ranking-list">
-                {[...Array(15)].map((_, index) => (
-                  <div className="ranking-item" key={index}>
-                    <span>#{index + 1}</span>
-                    <span>Score</span>
-                  </div>
-                ))}
-              </div>
-              <div className="ranking-item user-rank">
-                  <span>#{userRank.rank}</span>
-                  <span>Score: {userRank.score}</span>
-              </div>
-          </div>
-          */}
-
           <div className={inputDisabled ? "extraInfor visible" : "extraInfor"}>
             <div className="infor-title">Informations complémentaires</div>
             <div className="inforcontent">{selectedData.more_info}</div>
           </div>
 
-          <button className="exit-button" onClick={ShowStart}>
-            Quitter
-          </button>
+          {/* Display welcome message and username */}
+          <div className="welcome-message" style ={policestyle}>
+            Bienvenue {username} dans notre galerie d'art !
+          </div>
+          
+          <div className="viewed-arts-container">
+            <div className='viewed-arts-title'>Les oeuvres que vous avez vues :</div>
+            <div className='viewed-arts-content'>     
+                {viewedArts.map(art => (
+                  <li key={art._id}>{art.title} - {art.artist} - {art.score} point(s)</li>
+                ))}
+            </div>
+          </div> 
+          
+            <button className="return-button" onClick={ShowStart}>
+              Retour
+            </button>
+            <button className="exit-button" onClick={ShowStart}>
+              Quitter
+            </button>
+
+
         </div>
       )}
     </div>

@@ -39,10 +39,10 @@ function Login({ onClose }) {
 
   return (
     <div>
-      <h2>Bienvenue à la connexion!</h2>
       <form onSubmit={handleSubmit} className="login-container">
+        <h2>Rebonjour !</h2>
         <div className="login-item">
-          <label>Veuillez entrer votre nom d'utilisateur:</label>
+          <label>Veuillez entrer votre nom d'utilisateur :</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
