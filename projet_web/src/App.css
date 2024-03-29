@@ -40,14 +40,14 @@
 }
 
 .sliding-images {
-  background: url("/public/sliding-image.jpg");
+  background: url("/public/sliding_image_final.png");
   background-size: contain;
   position: relative;
   left: 0;
   top: 0;
   height: 100%;
   width: 4500px;
-  animation: slideshow 60s linear infinite;
+  animation: slideshow 100s linear infinite;
 }
 
 @keyframes slideshow {
