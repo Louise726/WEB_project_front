@@ -1,7 +1,9 @@
 import './App.css';
+import './page.css';
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import 'whatwg-fetch';
+import { CSSTransition } from 'react-transition-group';
 
 
 const Game = () => {
@@ -201,13 +203,23 @@ const Game = () => {
   return (
    <div className = "backGround"> 
     {/* show the start page */}
-    {showStart && !showGame && (
+    <CSSTransition
+      in={showStart}
+      timeout={500}
+      classNames="page"
+      unmountOnExit
+    >
       <div className="centered">
         <div className="sliding-images-container">
           <div className="sliding-images" />
         </div>
       {/* introduction */}
-      {!showChoice && (
+      <CSSTransition
+        in= {showStart && !showChoice}
+        timeout={300}
+        classNames="component"
+        unmountOnExit
+      >
         <div className="start-container" style={policestyle}>
           <div className="logo-title"></div>
           <div className="intro-box">
@@ -215,22 +227,32 @@ const Game = () => {
           </div>
           <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
         </div>
-      )}
+      </CSSTransition>
       {/* show the choice */}
-      {showChoice && (
+      <CSSTransition
+        in={showChoice}
+        timeout={300}
+        classNames="component"
+        unmountOnExit
+      >
         <div className="choice-button-container">
           <button className="choice-button-easy" onClick={EasyGame}>Facile</button>
           <button className="choice-button-medium" onClick={MediumGame}>Moyen</button>
           <button className="choice-button-hard" onClick={HardGame}>Difficile</button>
           <button className="exit-button" onClick={ShowStart}>Quitter</button>
         </div>
-      )}
+      </CSSTransition>
       </div>
-    )}
+    </CSSTransition>
 
 
     {/* show the game page */}
-    {showGame && !showStart && !showChoice && (    
+    <CSSTransition
+      in={showGame}
+      timeout={500}
+      classNames="page"
+      unmountOnExit
+    >  
       <div>  
         <div className='game-title'></div>
         <div className="centered-game"> {}
@@ -311,7 +333,7 @@ const Game = () => {
 
         <button className="exit-button" onClick={ShowStart}>Quitter</button>
       </div>
-    )}
+    </CSSTransition>
   </div>
   );
 }
