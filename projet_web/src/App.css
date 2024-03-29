@@ -373,6 +373,19 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
+.popup-content {
+  width: 10%;
+  margin: auto;
+  background-color:  #8241418a;
+  border: 1px solid #824141;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.popup-arrow {
+  color: #824141;
+}
+
 .answer {
   font-size: 20px; 
   color: #824141; 

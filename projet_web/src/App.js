@@ -1,6 +1,7 @@
 import './App.css';
 import './transition.css';
 import React, { createContext, useState,useEffect} from 'react';
+import Popup from 'reactjs-popup';
 import Login from './Login';
 import Signup from './Signup';
 import axios from 'axios';
@@ -193,7 +194,6 @@ const Game = () => {
   // gestion des indices
   const handleHint = (info) => {
     setHint(hint + 1)
-    alert(info);
   }
 
   const retirerAccents = str => 
@@ -341,12 +341,14 @@ const Game = () => {
                 style={{ marginRight: "10px" }}
                 onChange={(e) => handleInputChange(e, "title")}
               />
-              <button
-                className="buttonHint"
-                onClick={() => handleHint(selectedData.title_hint)}
-              >
-                Indice
-              </button>
+              <Popup
+                trigger={<button type="button" className="buttonHint"> Indice </button>}
+                position={['right center']}
+                closeOnDocumentClick
+                arrowClassName="popupArrow"
+                >
+                <div className='popupContent'> Contraire ou synonyme de : {selectedData.title_hint} </div>
+              </Popup>
               {showAnswer &&
                 retirerAccents(userAnswers.title).toLowerCase() !==
                   retirerAccents(selectedData.title).toLowerCase() && (
@@ -363,12 +365,14 @@ const Game = () => {
                 style={{ marginRight: "10px" }}
                 onChange={(e) => handleInputChange(e, "artist")}
               />
-              <button
-                className="buttonHint"
-                onClick={() => handleHint(selectedData.artist_hint)}
-              >
-                Indice
-              </button>
+              <Popup
+                trigger={<button type="button" className="buttonHint"> Indice </button>}
+                position={['right center']}
+                closeOnDocumentClick
+                arrowClassName="popupArrow"
+                >
+                <div className='popupContent'> {selectedData.artist_hint} </div>
+              </Popup>
               {showAnswer &&
                 retirerAccents(userAnswers.artist).toLowerCase() !==
                   retirerAccents(selectedData.artist).toLowerCase() && (
@@ -385,12 +389,14 @@ const Game = () => {
                 style={{ marginRight: "10px" }}
                 onChange={(e) => handleInputChange(e, "date")}
               />
-              <button
-                className="buttonHint"
-                onClick={() => handleHint(selectedData.date_hint)}
-              >
-                Indice
-              </button>
+              <Popup
+                trigger={<button type="button" className="buttonHint" onClick={handleHint}> Indice </button>}
+                position={['right center']}
+                closeOnDocumentClick
+                arrowClassName="popupArrow"
+                >
+                <div className='popupContent'> {selectedData.date_hint} </div>
+              </Popup>
               {showAnswer &&
                 userAnswers.date !== String(selectedData.date) && (
                   <div className="answer">{selectedData.date}</div>
@@ -420,11 +426,11 @@ const Game = () => {
 
           {/* Display welcome message and username */}
           <div className="welcome-message" style ={policestyle}>
-            Bienvenue {username} dans notre galerie d'art !
+            Bienvenue dans notre galerie d'art, {username} !
           </div>
           
           <div className="viewed-arts-container">
-            <div className='viewed-arts-title'>Les oeuvres que vous avez vues :</div>
+            <div className='viewed-arts-title'> Oeuvres rencontrées : </div>
             <div className='viewed-arts-content'>     
                 {viewedArts.map(art => (
                   <li key={art._id}>{art.title} - {art.artist} - {art.score} point(s)</li>
