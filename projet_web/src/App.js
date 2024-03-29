@@ -201,140 +201,183 @@ const Game = () => {
   }
   
   return (
-   <div className = "backGround"> 
-    {/* show the start page */}
-    <CSSTransition
-      in={showStart}
-      timeout={500}
-      classNames="page"
-      unmountOnExit
-    >
-      <div className="centered">
-        <div className="sliding-images-container">
-          <div className="sliding-images" />
-        </div>
-      {/* introduction */}
-      <CSSTransition
-        in= {showStart && !showChoice}
-        timeout={300}
-        classNames="component"
-        unmountOnExit
-      >
-        <div className="start-container" style={policestyle}>
-          <div className="logo-title"></div>
-          <div className="intro-box">
-            <div className="intro-content" style ={policestyle}> Révelez votre flair artistique </div>
+    <div className="backGround">
+      {/* show the start page */}
+      {showStart && !showGame && (
+        <div className="centered">
+          <div className="sliding-images-container">
+            <div className="sliding-images" />
           </div>
-          <button className="buttonStart" onClick={ShowChoice}>Démarrer</button>
-        </div>
-      </CSSTransition>
-      {/* show the choice */}
-      <CSSTransition
-        in={showChoice}
-        timeout={300}
-        classNames="component"
-        unmountOnExit
-      >
-        <div className="choice-button-container">
-          <button className="choice-button-easy" onClick={EasyGame}>Facile</button>
-          <button className="choice-button-medium" onClick={MediumGame}>Moyen</button>
-          <button className="choice-button-hard" onClick={HardGame}>Difficile</button>
-          <button className="exit-button" onClick={ShowStart}>Quitter</button>
-        </div>
-      </CSSTransition>
-      </div>
-    </CSSTransition>
-
-
-    {/* show the game page */}
-    <CSSTransition
-      in={showGame}
-      timeout={500}
-      classNames="page"
-      unmountOnExit
-    >  
-      <div>  
-        <div className='game-title'></div>
-        <div className="centered-game"> {}
-          <div className="logo"></div>
-          <div>
-            <img src={selectedData.image} alt="Artwork" height="300"/>
-          </div>
-          <div className = "row">
-            <input type="text" 
-                  value={userAnswers.title}
-                  disabled={showAnswer || inputDisabled} 
-                  placeholder='Titre' 
-                  className = "inputCustom" 
-                  style = {{marginRight : "10px"}}
-                  onChange = {(e) => handleInputChange(e, 'title')}/>
-            <button className="buttonHint" onClick={() => handleHint(selectedData.title)}>Indice</button>
-            {showAnswer && retirerAccents(userAnswers.title).toLowerCase() !== retirerAccents(selectedData.title).toLowerCase() &&<div className="answer">{selectedData.title}</div>}
-          </div>  
-          <div className = "row">
-            <input type="text" 
-                  value= {userAnswers.artist}
-                  disabled={showAnswer || inputDisabled} 
-                  className = "inputCustom" 
-                  placeholder='Artiste'
-                  style = {{marginRight : "10px"}}
-                  onChange= {(e) => handleInputChange(e, 'artist')}
-                  />
-            <button className="buttonHint" onClick={() => handleHint(selectedData.artist)}>Indice</button>
-            {showAnswer && retirerAccents(userAnswers.artist).toLowerCase() !== retirerAccents(selectedData.artist).toLowerCase() && <div className="answer">{selectedData.artist}</div>}
-          </div>
-          <div className = "row">
-            <input type="text" 
-                  value= {userAnswers.date}
-                  disabled={showAnswer || inputDisabled} 
-                  className = "inputCustom" 
-                  placeholder='Date'
-                  style = {{marginRight : "10px"}}
-                  onChange = {(e) => handleInputChange(e, 'date')}
-                  />
-            <button className="buttonHint" onClick={() => handleHint(selectedData.date)}>Indice</button>
-            {showAnswer && retirerAccents(userAnswers.date).toLowerCase() !== retirerAccents(selectedData.date).toLowerCase() &&<div className="answer">{selectedData.date}</div>}
-          </div>
-          <div className = "row" >
-            <button className = "button" disabled={inputDisabled} onClick={handleSubmission} style={{marginRight:"10px"}}>Valider</button>
-            <button className = "button" onClick={handleNext}>Suivant</button>
-          </div>
-          <div className="row">
-              <div className={inputDisabled ? 'score-box visible' : 'score-box'}>
-                <div className='scoreround'>Score: {scoreRound}</div>
-              </div>
-            
-          </div>
-        </div>
-        
-        {/* show the ranking */}
-        {/*
-        <div className="ranking-container">
-            <div className="ranking-title">Ranking</div>
-            <div className="ranking-list">
-              {[...Array(15)].map((_, index) => (
-                <div className="ranking-item" key={index}>
-                  <span>#{index + 1}</span>
-                  <span>Score</span>
+          {/* introduction */}
+          <CSSTransition
+            in={showStart && !showChoice}
+            timeout={300}
+            classNames="component"
+            unmountOnExit
+          >
+            <div className="start-container" style={policestyle}>
+              <div className="logo-title"></div>
+              <div className="intro-box">
+                <div className="intro-content" style={policestyle}>
+                  Révelez votre flair artistique
                 </div>
-              ))}
+              </div>
+              <button className="buttonStart" onClick={ShowChoice}>
+                Démarrer
+              </button>
             </div>
-            <div className="ranking-item user-rank">
-                <span>#{userRank.rank}</span>
-                <span>Score: {userRank.score}</span>
+          </CSSTransition>
+          {/* show the choice */}
+          <CSSTransition
+            in={showChoice}
+            timeout={300}
+            classNames="component"
+            unmountOnExit
+          >
+            <div className="choice-button-container">
+              <button className="choice-button-easy" onClick={EasyGame}>
+                Facile
+              </button>
+              <button className="choice-button-medium" onClick={MediumGame}>
+                Moyen
+              </button>
+              <button className="choice-button-hard" onClick={HardGame}>
+                Difficile
+              </button>
+              <button className="exit-button" onClick={ShowStart}>
+                Quitter
+              </button>
             </div>
+          </CSSTransition>
         </div>
-        */}
-        
-        <div className={inputDisabled? "extraInfor visible" : "extraInfor"}> 
+      )}
+
+      {/* show the game page */}
+      {showGame && !showStart && !showChoice && ( 
+        <div>
+          <div className="game-title"></div>
+          <div className="centered-game">
+            {}
+            <div className="logo"></div>
+            <div>
+              <img src={selectedData.image} alt="Artwork" height="300" />
+            </div>
+            <div className="row">
+              <input
+                type="text"
+                value={userAnswers.title}
+                disabled={showAnswer || inputDisabled}
+                placeholder="Titre"
+                className="inputCustom"
+                style={{ marginRight: "10px" }}
+                onChange={(e) => handleInputChange(e, "title")}
+              />
+              <button
+                className="buttonHint"
+                onClick={() => handleHint(selectedData.title)}
+              >
+                Indice
+              </button>
+              {showAnswer &&
+                retirerAccents(userAnswers.title).toLowerCase() !==
+                  retirerAccents(selectedData.title).toLowerCase() && (
+                  <div className="answer">{selectedData.title}</div>
+                )}
+            </div>
+            <div className="row">
+              <input
+                type="text"
+                value={userAnswers.artist}
+                disabled={showAnswer || inputDisabled}
+                className="inputCustom"
+                placeholder="Artiste"
+                style={{ marginRight: "10px" }}
+                onChange={(e) => handleInputChange(e, "artist")}
+              />
+              <button
+                className="buttonHint"
+                onClick={() => handleHint(selectedData.artist)}
+              >
+                Indice
+              </button>
+              {showAnswer &&
+                retirerAccents(userAnswers.artist).toLowerCase() !==
+                  retirerAccents(selectedData.artist).toLowerCase() && (
+                  <div className="answer">{selectedData.artist}</div>
+                )}
+            </div>
+            <div className="row">
+              <input
+                type="text"
+                value={userAnswers.date}
+                disabled={showAnswer || inputDisabled}
+                className="inputCustom"
+                placeholder="Date"
+                style={{ marginRight: "10px" }}
+                onChange={(e) => handleInputChange(e, "date")}
+              />
+              <button
+                className="buttonHint"
+                onClick={() => handleHint(selectedData.date)}
+              >
+                Indice
+              </button>
+              {showAnswer &&
+                retirerAccents(userAnswers.date).toLowerCase() !==
+                  retirerAccents(selectedData.date).toLowerCase() && (
+                  <div className="answer">{selectedData.date}</div>
+                )}
+            </div>
+            <div className="row">
+              <button
+                className="button"
+                disabled={inputDisabled}
+                onClick={handleSubmission}
+                style={{ marginRight: "10px" }}
+              >
+                Valider
+              </button>
+              <button className="button" onClick={handleNext}>
+                Suivant
+              </button>
+            </div>
+            <div className="row">
+              <div className={inputDisabled ? "score-box visible" : "score-box"}>
+                <div className="scoreround">Score: {scoreRound}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* show the ranking */}
+          {/*
+          <div className="ranking-container">
+              <div className="ranking-title">Ranking</div>
+              <div className="ranking-list">
+                {[...Array(15)].map((_, index) => (
+                  <div className="ranking-item" key={index}>
+                    <span>#{index + 1}</span>
+                    <span>Score</span>
+                  </div>
+                ))}
+              </div>
+              <div className="ranking-item user-rank">
+                  <span>#{userRank.rank}</span>
+                  <span>Score: {userRank.score}</span>
+              </div>
+          </div>
+          */}
+
+          <div className={inputDisabled ? "extraInfor visible" : "extraInfor"}>
             <div className="infor-title">Informations complémentaires</div>
             <div className="inforcontent">{selectedData.more_info}</div>
-        </div>
+          </div>
 
-        <button className="exit-button" onClick={ShowStart}>Quitter</button>
-      </div>
-    </CSSTransition>
-  </div>
+          <button className="exit-button" onClick={ShowStart}>
+            Quitter
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
