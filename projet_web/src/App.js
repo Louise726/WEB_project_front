@@ -323,7 +323,7 @@ const Game = () => {
                 Indice
               </button>
               {showAnswer &&
-                userAnswers.date !== selectedData.date && (
+                userAnswers.date !== String(selectedData.date) && (
                   <div className="answer">{selectedData.date}</div>
                 )}
             </div>
