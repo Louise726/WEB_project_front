@@ -47,12 +47,12 @@
   top: 0;
   height: 100%;
   width: 4500px;
-  animation: slideshow 100s linear infinite;
+  animation: slideshow 60s linear infinite;
 }
 
 @keyframes slideshow {
   100% { 
-    -webkit-transform: translateX(-67.4%);  
+    -webkit-transform: translateX(-48.47%);  
   }
 }
 

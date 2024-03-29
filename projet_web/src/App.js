@@ -195,7 +195,7 @@ const Game = () => {
     
     const scoreGet = 
       (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0 )+
-      (retirerAccents(userAnswers.artist).toLowerCase() === retirerAccents(selectedData.artist).toLowerCase() ? 100 : 0) +
+      (retirerAccents(selectedData.artist).toLowerCase().includes(retirerAccents(userAnswers.artist).toLowerCase()) && retirerAccents(userAnswers.artist).toLowerCase() !== "" && retirerAccents(userAnswers.artist).toLowerCase() !== " "? 100 : 0) +
       (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0) -
       hint * 50 ;
     
