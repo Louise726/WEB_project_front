@@ -102,7 +102,17 @@ const Game = () => {
   }
   
   const ShowChoice = () => {
+    setShowStart(true);
     setShowChoice(true);
+    setShowGame(false);
+
+    setScoreRound(0);
+    setHint(0);
+    setShowAnswer(false);
+    setInputDisabled(false);
+    setUserAnswers({ title: '',artist: '', date: ''});
+    setLevel(null);
+    setSelectedData(null);
   }
   
   const ShowGame = () => {
@@ -422,7 +432,7 @@ const Game = () => {
             </div>
           </div> 
           
-            <button className="return-button" onClick={ShowStart}>
+            <button className="return-button" onClick={ShowChoice}>
               Retour
             </button>
             <button className="exit-button" onClick={ShowStart}>
