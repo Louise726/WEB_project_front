@@ -343,11 +343,10 @@ const Game = () => {
               />
               <Popup
                 trigger={<button type="button" className="buttonHint"> Indice </button>}
-                position={['right center']}
+                position={['right top']}
                 closeOnDocumentClick
-                arrowClassName="popupArrow"
                 >
-                <div className='popupContent'> Contraire ou synonyme de : {selectedData.title_hint} </div>
+                Contraire ou synonyme de : {selectedData.title_hint}
               </Popup>
               {showAnswer &&
                 retirerAccents(userAnswers.title).toLowerCase() !==
@@ -367,11 +366,10 @@ const Game = () => {
               />
               <Popup
                 trigger={<button type="button" className="buttonHint"> Indice </button>}
-                position={['right center']}
+                position={['right top']}
                 closeOnDocumentClick
-                arrowClassName="popupArrow"
                 >
-                <div className='popupContent'> {selectedData.artist_hint} </div>
+                {selectedData.artist_hint}
               </Popup>
               {showAnswer &&
                 retirerAccents(userAnswers.artist).toLowerCase() !==
@@ -391,11 +389,10 @@ const Game = () => {
               />
               <Popup
                 trigger={<button type="button" className="buttonHint" onClick={handleHint}> Indice </button>}
-                position={['right center']}
+                position={['right top']}
                 closeOnDocumentClick
-                arrowClassName="popupArrow"
                 >
-                <div className='popupContent'> {selectedData.date_hint} </div>
+                {selectedData.date_hint}
               </Popup>
               {showAnswer &&
                 userAnswers.date !== String(selectedData.date) && (
