@@ -12,48 +12,51 @@ export const AuthContext = createContext();
 
 const Game = () => {
   // connexion à la base de données
-  const [data, setData] = useState([]);
-  const [easyIds, setEasyIds] = useState([]);
-  const [mediumIds, setMediumIds] = useState([]);
-  const [hardIds, setHardIds] = useState([]);
+  const [easy, setEasy] = useState([]);
+  const [medium, setMedium] = useState([]);
+  const [hard, setHard] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/arts');
-        setData(response.data);
+        const response = await axios.get('/api/arts/easy');
+        setEasy(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching easy data:', error);
+      }
+
+      try {
+        const response = await axios.get('/api/arts/medium');
+        setMedium(response.data);
+      } catch (error) {
+        console.error('Error fetching medium data:', error);
+      }
+
+      try {
+        const response = await axios.get('/api/arts/hard');
+        setHard(response.data);
+      } catch (error) {
+        console.error('Error fetching hard data:', error);
       }
     };
 
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const easy = data.filter(item => item.level === 'facile').map(item => item._id);
-    const medium = data.filter(item => item.level === 'moyen').map(item => item._id);
-    const hard = data.filter(item => item.level === 'difficile').map(item => item._id);
-    
-    setEasyIds(easy);
-    setMediumIds(medium);
-    setHardIds(hard);
-  }, [data]);
-
   // concernant l'affichage
   const[showStart, setShowStart] = useState(true);
   const[showChoice, setShowChoice] = useState(false);
   const[showGame, setShowGame] = useState(false);
   
+  // concernant les users
   const [username, setUsername] = useState('');
   const [showLog, setShowLog] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [viewedArts, setViewedArts] = useState([]);
 
   // choix level
-  const [level, setLevel] = useState(null);
+  const [level, setLevel] = useState('');
   const [selectedData, setSelectedData] = useState(null);
   
   // jeu
@@ -123,67 +126,37 @@ const Game = () => {
   }
   
   // différents niveaux
-  const EasyGame = () => {
-    setLevel('easy')
-    const randomIndex = Math.floor(Math.random() * easyIds.length);
-    const selectedId = easyIds[randomIndex];
-    let maybeData = data.find(item => item._id === selectedId);
+  const findData = (x) => {
+    const randomIndex = Math.floor(Math.random() * x.length);
+    let data = x[randomIndex];
     if (selectedData !== null) {
-      while (maybeData === selectedData) {
-        const randomIndex = Math.floor(Math.random() * easyIds.length);
-        const selectedId = easyIds[randomIndex];
-        maybeData = data.find(item => item._id === selectedId);
+      while (data === selectedData) {
+        const randomIndex = Math.floor(Math.random() * x.length);
+        data = x[randomIndex];
       }
     }
-    if (maybeData) {
-      setSelectedData(maybeData);
-      console.log(maybeData)
+    if (data) {
+      setSelectedData(data);
+      console.log(data)
       ShowGame();
     } else {
-      console.error('No data found for selected ID:', selectedId);
+      console.error('No data found');
     }
+  }
+
+  const EasyGame = () => {
+    setLevel('easy');
+    findData(easy);
   }
 
   const MediumGame = () => {
-    setLevel('medium')
-    const randomIndex = Math.floor(Math.random() * mediumIds.length);
-    const selectedId = mediumIds[randomIndex];
-    let maybeData = data.find(item => item._id === selectedId);
-    if (selectedData !== null) {
-      while (maybeData === selectedData) {
-        const randomIndex = Math.floor(Math.random() * mediumIds.length);
-        const selectedId = mediumIds[randomIndex];
-        maybeData = data.find(item => item._id === selectedId);
-      }
-    }
-    if (maybeData) {
-      setSelectedData(maybeData);
-      console.log(maybeData)
-      ShowGame();
-    } else {
-      console.error('No data found for selected ID:', selectedId);
-    }
+    setLevel('medium');
+    findData(medium);
   }
 
   const HardGame = () => {
-    setLevel('hard')
-    const randomIndex = Math.floor(Math.random() * hardIds.length);
-    const selectedId = hardIds[randomIndex];
-    let maybeData = data.find(item => item._id === selectedId);
-    if (selectedData !== null){
-      while (maybeData === selectedData) {
-        const randomIndex = Math.floor(Math.random() * hardIds.length);
-        const selectedId = hardIds[randomIndex];
-        maybeData = data.find(item => item._id === selectedId);
-      }
-    }
-    if (maybeData) {
-      setSelectedData(maybeData);
-      console.log(maybeData)
-      ShowGame();
-    } else {
-      console.error('No data found for selected ID:', selectedId);
-    }
+    setLevel('hard');
+    findData(hard);
   }
 
   // mettre à jour les réponses de l'utilisateur
