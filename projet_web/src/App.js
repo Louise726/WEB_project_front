@@ -60,7 +60,6 @@ const Game = () => {
   const [selectedData, setSelectedData] = useState(null);
   
   // jeu
-  const [hint, setHint] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false); 
   const [inputDisabled, setInputDisabled] = useState(false);
   const [scoreRound, setScoreRound] = useState(0);
@@ -82,7 +81,6 @@ const Game = () => {
     setUsername('');
 
     setScoreRound(0);
-    setHint(0);
     setShowAnswer(false);
     setInputDisabled(false);
     setUserAnswers({ title: '',artist: '', date: ''});
@@ -111,7 +109,6 @@ const Game = () => {
     setShowGame(false);
 
     setScoreRound(0);
-    setHint(0);
     setShowAnswer(false);
     setInputDisabled(false);
     setUserAnswers({ title: '',artist: '', date: ''});
@@ -163,11 +160,6 @@ const Game = () => {
   const handleInputChange = (e, key) => {
     setUserAnswers({ ...userAnswers, [key]: e.target.value });
   };
-  
-  // gestion des indices
-  const handleHint = (info) => {
-    setHint(hint + 1)
-  }
 
   const retirerAccents = str => 
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -178,8 +170,7 @@ const Game = () => {
     const scoreGet = 
       (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0 )+
       (retirerAccents(selectedData.artist).toLowerCase().includes(retirerAccents(userAnswers.artist).toLowerCase()) && retirerAccents(userAnswers.artist).toLowerCase().length > 2 ? 100 : 0) +
-      (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0) -
-      hint * 50 ;
+      (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0);
 
     const alreadyViewed = viewedArts.some(art => art._id === selectedData._id);
 
@@ -196,6 +187,10 @@ const Game = () => {
   const handleNext = () => {
 
     setShowAnswer(false);
+    setUserAnswers({ title: '',artist: '', date: ''}); 
+    setInputDisabled(false);
+    setScoreRound(0);
+
     if (level === 'easy') {
       EasyGame()
     } else if (level === 'medium') {
@@ -203,11 +198,6 @@ const Game = () => {
     } else if (level === 'hard') {
       HardGame()
     }
-    
-    setUserAnswers({ title: '',artist: '', date: ''}); 
-    setInputDisabled(false);
-    setScoreRound(0);
-    setHint(0);
   };
 
   const policestyle = {
@@ -361,7 +351,7 @@ const Game = () => {
                 onChange={(e) => handleInputChange(e, "date")}
               />
               <Popup
-                trigger={<button type="button" className="buttonHint" onClick={handleHint}> Indice </button>}
+                trigger={<button type="button" className="buttonHint"> Indice </button>}
                 position={['right top']}
                 closeOnDocumentClick
                 >

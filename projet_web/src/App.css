@@ -184,7 +184,7 @@
   height: 75%;
 }
 
-.choice-button-easy {
+.choice-button-easy, .choice-button-medium, .choice-button-hard {
   width: 200px;
   height: 60px;
   font-size: 32px;
@@ -206,43 +206,9 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
-.choice-button-medium {
-  width: 200px;
-  height: 60px;
-  font-size: 32px;
-  text-align: center;
-  color: rgb(85, 85, 85);
-  background-color: #f1eef434;
-  border: none;
-  margin: 20px 5px;
-  display: inline-block;
-  border-radius: 5px;
-  cursor: pointer;
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);   
-  transition: background-color 0.3s;
-}
-
 .choice-button-medium:hover {
   background-color: #ffbd5b; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-}
-
-.choice-button-hard {
-  width: 200px;
-  height: 60px;
-  font-size: 32px;
-  text-align: center;
-  color: rgb(85, 85, 85);
-  background-color: #f1eef434;
-  border: none;
-  margin: 20px 5px;
-  display: inline-block;
-  border-radius: 5px;
-  cursor: pointer;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);    
-  transition: background-color 0.3s;
 }
 
 .choice-button-hard:hover {
@@ -280,7 +246,7 @@
   background-position: left;
 }
 
-.extraInfor{
+.extraInfor, .extraInfor.visible {
   position: fixed;
   top: 24%;
   left: 2%;
@@ -290,20 +256,14 @@
   background-color: #f1eef434;
   display: flex;
   flex-direction: column;
+}
+
+.extraInfor {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
 
 .extraInfor.visible{
-  position: fixed;
-  top: 24%;
-  left: 2%;
-  width: 22%;
-  height: 74%;
-  border-radius: 10px; 
-  background-color: #f1eef434;
-  display: flex;
-  flex-direction: column;
   opacity: 1;
 }
 
@@ -339,9 +299,9 @@
 .inputCustom {
   font-size: 20px;
   background-color: transparent; 
-  border: none; /* remove border */
-  border-bottom: 1px solid black; /* add a bottom border */
-  color: black; /* color of words */
+  border: none;
+  border-bottom: 1px solid black;
+  color: black;
   outline: none;
   text-align: center; 
 }
@@ -349,8 +309,8 @@
 .inputCustom::placeholder {
   font-size: 20px;
   background-color: transparent; 
-  border: none; /* remove border */
-  color: rgb(75, 74, 74); /* color of words */
+  border: none;
+  color: rgb(75, 74, 74);
   outline: none; 
   text-align: center;
 }
@@ -400,23 +360,23 @@
   width: 120px; 
   height: 30px; 
   font-size: 20px; 
-  color: rgb(49, 47, 47); /* color of words */
+  color: rgb(49, 47, 47);
   background-color: #f1eef422; 
-  border: none; /* remove border */
-  border-radius: 5px; /* set border radius */
-  cursor: pointer; /* change cursor to pointer */
-  transition: background-color 0.3s; /* add the transition effect */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; 
   box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
 }
 
 .button:hover {
-  background-color: #e5eaf0dd; /* change background color when hover */
+  background-color: #e5eaf0dd;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 .fade-out {
-  transition : opacity 0.3s ease-out; /* add the transition effect */
-  opacity: 0; /* set the opacity to 0 */
+  transition : opacity 0.3s ease-out;
+  opacity: 0;
 }
 
 .welcome-message {
@@ -461,7 +421,7 @@
   text-align: justify;
 }
 
-.score-box {
+.score-box, .score-box.visible {
   position : fixed;
   display: flex;
   bottom: 9%;
@@ -473,22 +433,14 @@
   align-items: center;
   background-color: #f1eef434; 
   word-wrap: break-word;
+}
+
+.score-box {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
 
 .score-box.visible {
-  position : fixed;
-  display: flex;
-  bottom: 9%;
-  right: 2%;
-  width : 22%;
-  height : 10%;
-  border-radius: 10px; 
-  justify-content: center;
-  align-items: center;
-  background-color: #f1eef434; 
-  word-wrap: break-word;
   opacity: 1;
 }
 
@@ -527,26 +479,3 @@
   background-color: #e5eaf0e9; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
-
-/*.return-button {
-  position: fixed;
-  right: 20%;
-  bottom: 2%;
-  width: 100px;
-  height: 5%;
-  font-size: 20px;
-  text-align: center;
-  color: rgb(43, 39, 39);
-  background-color: #f1eef434;
-  border: none;
-  display: inline-block;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  box-shadow: 0 4px 8px rgba(56, 56, 56, 0.1);
-}
-
-.return-button:hover {
-  background-color: #e5eaf0e9; 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-}*/
