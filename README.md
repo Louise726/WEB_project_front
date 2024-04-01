@@ -18,4 +18,4 @@ Commande pour exécuter le code :
 
 ## Informations supllémentaires
 
-En fonction du numéro de port choisi pour le back-end, pensez à le modifier dans le code !
+En fonction du numéro de port choisi pour le back-end, pensez à le modifier dans l'adresse proxy dans le fichier _package.json_.
