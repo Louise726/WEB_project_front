@@ -15,3 +15,7 @@ Installation des dépendances :
 
 Commande pour exécuter le code :
 ```npm start```
+
+## Informations supllémentaires
+
+En fonction du numéro de port choisi pour le back-end, pensez à le modifier dans l'adresse proxy dans le fichier _package.json_.
