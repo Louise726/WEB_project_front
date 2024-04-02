@@ -133,6 +133,10 @@ const Game = () => {
       }
     }
     if (data) {
+      /*const alreadyViewed = viewedArts.some(art => art._id === data._id);
+      if (alreadyViewed) {
+        setViewedArts(viewedArts.filter(art => art._id !== data._id));
+      }*/
       setSelectedData(data);
       console.log(data)
       ShowGame();
@@ -170,12 +174,19 @@ const Game = () => {
     const scoreGet = 
       (retirerAccents(userAnswers.title).toLowerCase() === retirerAccents(selectedData.title).toLowerCase() ? 100 : 0 )+
       (retirerAccents(selectedData.artist).toLowerCase().includes(retirerAccents(userAnswers.artist).toLowerCase()) && retirerAccents(userAnswers.artist).toLowerCase().length > 2 ? 100 : 0) +
-      (userAnswers.date > selectedData.date-5 && userAnswers.date < selectedData.date+5 ? 100 : 0);
+      (userAnswers.date > selectedData.date-6 && userAnswers.date < selectedData.date + 6 ? 100 : 0);
 
     const alreadyViewed = viewedArts.some(art => art._id === selectedData._id);
 
     if (!alreadyViewed) {
       setViewedArts(prevArts => [...prevArts, { _id: selectedData._id, title: selectedData.title, artist: selectedData.artist, score: scoreGet}]);
+    }
+    else {
+      const bestScore = viewedArts.some(art => (art._id === selectedData._id && art.score < scoreGet));
+      if (bestScore){
+        setViewedArts(viewedArts.filter(art => art._id !== selectedData._id));
+        setViewedArts(prevArts => [...prevArts, { _id: selectedData._id, title: selectedData.title, artist: selectedData.artist, score: scoreGet}]);
+      }
     }
     
     setShowAnswer(true)
